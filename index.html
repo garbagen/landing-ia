@@ -219,7 +219,7 @@
 </div>
 
 <!-- ── PONENTES ──────────────────────────────────────────── -->
-<section class="py-16 px-5 bg-bg reveal">
+<section id="ponentes" class="py-16 px-5 bg-bg reveal">
   <h2 class="font-display text-5xl mb-10 tracking-tight text-white uppercase border-l-4 border-cyan pl-4">
     PONENTES
   </h2>
@@ -243,7 +243,12 @@
     <!-- Microsoft -->
     <div class="speaker-card min-w-[75vw] max-w-[280px] snap-center bg-surface-hi flex-shrink-0">
       <div class="aspect-[3/4] overflow-hidden relative flex items-center justify-center bg-[#00184a]">
-        <img src="https://logo.clearbit.com/microsoft.com" alt="Microsoft" class="w-28 h-28 object-contain" loading="lazy"/>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="90" height="90" aria-label="Microsoft">
+          <rect x="0"  y="0"  width="47" height="47" fill="#f25022"/>
+          <rect x="53" y="0"  width="47" height="47" fill="#7fba00"/>
+          <rect x="0"  y="53" width="47" height="47" fill="#00a4ef"/>
+          <rect x="53" y="53" width="47" height="47" fill="#ffb900"/>
+        </svg>
         <div class="absolute inset-0 border border-cyan/10 pointer-events-none"></div>
       </div>
       <div class="p-5">
@@ -257,7 +262,9 @@
     <!-- Eurecat -->
     <div class="speaker-card min-w-[75vw] max-w-[280px] snap-center bg-surface-hi flex-shrink-0">
       <div class="aspect-[3/4] overflow-hidden relative flex items-center justify-center bg-[#001a2e]">
-        <img src="https://logo.clearbit.com/eurecat.org" alt="Eurecat" class="w-32 h-32 object-contain" loading="lazy"/>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 80" width="140" aria-label="Eurecat">
+          <text x="10" y="62" font-family="Arial Black, sans-serif" font-size="58" font-weight="900" fill="#00c8d4" letter-spacing="-2">EURECAT</text>
+        </svg>
         <div class="absolute inset-0 border border-cyan/10 pointer-events-none"></div>
       </div>
       <div class="p-5">
@@ -271,7 +278,9 @@
     <!-- Gigas -->
     <div class="speaker-card min-w-[75vw] max-w-[280px] snap-center bg-surface-hi flex-shrink-0">
       <div class="aspect-[3/4] overflow-hidden relative flex items-center justify-center bg-[#1a0a2e]">
-        <img src="https://logo.clearbit.com/gigas.com" alt="Gigas" class="w-32 h-32 object-contain" loading="lazy"/>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 80" width="130" aria-label="Gigas">
+          <text x="8" y="62" font-family="Arial Black, sans-serif" font-size="60" font-weight="900" fill="#a855f7" letter-spacing="-2">gigas</text>
+        </svg>
         <div class="absolute inset-0 border border-cyan/10 pointer-events-none"></div>
       </div>
       <div class="p-5">
@@ -285,7 +294,9 @@
     <!-- Freepik -->
     <div class="speaker-card min-w-[75vw] max-w-[280px] snap-center bg-surface-hi flex-shrink-0">
       <div class="aspect-[3/4] overflow-hidden relative flex items-center justify-center bg-[#1f0a00]">
-        <img src="https://logo.clearbit.com/freepik.com" alt="Freepik" class="w-32 h-32 object-contain" loading="lazy"/>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 80" width="150" aria-label="Freepik">
+          <text x="4" y="62" font-family="Arial Black, sans-serif" font-size="50" font-weight="900" fill="#ff6b2b" letter-spacing="-1">freepik</text>
+        </svg>
         <div class="absolute inset-0 border border-cyan/10 pointer-events-none"></div>
       </div>
       <div class="p-5">
@@ -312,7 +323,7 @@
 </section>
 
 <!-- ── SOBRE EL EVENTO ────────────────────────────────────── -->
-<section class="py-16 px-5 bg-surface clip-up clip-down reveal">
+<section id="sobre" class="py-16 px-5 bg-surface clip-up clip-down reveal">
   <div class="max-w-lg">
     <p class="font-grotesk text-[10px] text-amber tracking-[0.3em] uppercase mb-4">El evento</p>
     <h2 class="font-display text-5xl leading-none mb-6 uppercase">IA DE VERDAD,<br/><span class="text-cyan">EN MELILLA.</span></h2>
@@ -399,18 +410,18 @@
 
 <!-- ── BOTTOM NAV ─────────────────────────────────────────── -->
 <nav class="fixed bottom-0 left-0 w-full h-16 z-50 flex items-stretch bg-bg border-t border-border shadow-[0_0_30px_rgba(0,242,255,0.12)]">
-  <a href="#" class="flex-1 flex flex-col items-center justify-center text-cyan gap-0.5 hover:bg-surface-hi transition-colors">
-    <span class="material-symbols-outlined text-xl">event_note</span>
-    <span class="font-grotesk font-bold text-[9px] uppercase tracking-widest">Agenda</span>
-  </a>
-  <a href="#" class="flex-1 flex flex-col items-center justify-center text-cyan gap-0.5 hover:bg-surface-hi transition-colors">
+  <button data-scroll="ponentes" class="flex-1 flex flex-col items-center justify-center text-cyan gap-0.5 hover:bg-surface-hi transition-colors">
     <span class="material-symbols-outlined text-xl">record_voice_over</span>
     <span class="font-grotesk font-bold text-[9px] uppercase tracking-widest">Ponentes</span>
-  </a>
-  <a href="#registro" class="flex-1 flex flex-col items-center justify-center bg-cyan text-bg gap-0.5 hover:bg-amber transition-colors">
+  </button>
+  <button data-scroll="sobre" class="flex-1 flex flex-col items-center justify-center text-cyan gap-0.5 hover:bg-surface-hi transition-colors">
+    <span class="material-symbols-outlined text-xl">info</span>
+    <span class="font-grotesk font-bold text-[9px] uppercase tracking-widest">Evento</span>
+  </button>
+  <button data-scroll="registro" class="flex-1 flex flex-col items-center justify-center bg-cyan text-bg gap-0.5 hover:bg-amber transition-colors">
     <span class="material-symbols-outlined text-xl">confirmation_number</span>
     <span class="font-grotesk font-bold text-[9px] uppercase tracking-widest">Registro</span>
-  </a>
+  </button>
 </nav>
 
 <!-- ── OVERLAY ────────────────────────────────────────────── -->
@@ -563,15 +574,23 @@
   }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
   reveals.forEach(function(el) { observer.observe(el); });
 
-  /* ── SMOOTH SCROLL para CTAs ─────────────────────── */
-  document.querySelectorAll('a[href="#registro"]').forEach(function(a) {
-    a.addEventListener('click', function(e) {
+  /* ── SMOOTH SCROLL ───────────────────────────────── */
+  document.querySelectorAll('a[href="#registro"], button[data-scroll="registro"]').forEach(function(el) {
+    el.addEventListener('click', function(e) {
       e.preventDefault();
       document.getElementById('registro').scrollIntoView({ behavior: 'smooth' });
       setTimeout(function() {
         var inp = document.getElementById('wl-email');
         if (inp) inp.focus();
       }, 600);
+    });
+  });
+
+  document.querySelectorAll('[data-scroll]').forEach(function(el) {
+    el.addEventListener('click', function() {
+      var id = el.getAttribute('data-scroll');
+      var target = document.getElementById(id);
+      if (target) target.scrollIntoView({ behavior: 'smooth' });
     });
   });
 
