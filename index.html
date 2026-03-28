@@ -1,0 +1,1203 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="AI Melilla 2025 — El primer gran evento de Inteligencia Artificial en Melilla. 20, 21 y 22 de mayo de 2025." />
+  <title>AI Melilla 2025 — 20·21·22 Mayo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ─── RESET & BASE ─────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy:    #0a0f1e;
+      --navy2:   #0d1428;
+      --navy3:   #111d3a;
+      --cyan:    #00f5ff;
+      --cyan-d:  #00c8d4;
+      --amber:   #ffb800;
+      --white:   #e8f0fe;
+      --muted:   #5a6a8a;
+      --glass-bg:    rgba(255,255,255,0.04);
+      --glass-border: rgba(0,245,255,0.15);
+      --font-display: 'Syne', sans-serif;
+      --font-body:    'Inter', sans-serif;
+      --radius: 12px;
+      --transition: 0.3s cubic-bezier(0.4,0,0.2,1);
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      background-color: var(--navy);
+      color: var(--white);
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    ::selection { background: var(--cyan); color: var(--navy); }
+
+    /* ─── SCROLLBAR ─────────────────────────────────────────── */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--navy); }
+    ::-webkit-scrollbar-thumb { background: var(--navy3); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--cyan); }
+
+    /* ─── NAV ───────────────────────────────────────────────── */
+    #nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      padding: 0 5vw;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 68px;
+      background: rgba(10,15,30,0.7);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(0,245,255,0.07);
+      transition: background var(--transition);
+    }
+    #nav.scrolled { background: rgba(10,15,30,0.95); }
+    .nav-logo {
+      font-family: var(--font-display);
+      font-weight: 800; font-size: 1.1rem;
+      letter-spacing: -0.02em;
+      color: var(--white);
+      text-decoration: none;
+    }
+    .nav-logo span { color: var(--cyan); }
+    .nav-links {
+      display: flex; gap: 2rem; list-style: none;
+    }
+    .nav-links a {
+      font-size: 0.85rem; font-weight: 500;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      color: var(--muted); text-decoration: none;
+      transition: color var(--transition);
+    }
+    .nav-links a:hover { color: var(--cyan); }
+    .nav-cta {
+      font-family: var(--font-display);
+      font-size: 0.82rem; font-weight: 700;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--navy);
+      background: var(--cyan);
+      border: none; border-radius: 6px;
+      padding: 0.55rem 1.3rem;
+      cursor: pointer; text-decoration: none;
+      transition: background var(--transition), box-shadow var(--transition), transform var(--transition);
+    }
+    .nav-cta:hover {
+      background: #fff;
+      box-shadow: 0 0 22px rgba(0,245,255,0.6);
+      transform: translateY(-1px);
+    }
+
+    /* Hamburger */
+    .hamburger {
+      display: none; flex-direction: column; gap: 5px;
+      background: none; border: none; cursor: pointer; padding: 4px;
+    }
+    .hamburger span {
+      display: block; width: 24px; height: 2px;
+      background: var(--white); border-radius: 2px;
+      transition: transform var(--transition), opacity var(--transition);
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* Mobile menu */
+    .mobile-menu {
+      display: none; position: fixed; top: 68px; left: 0; right: 0; z-index: 99;
+      background: rgba(10,15,30,0.98);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(0,245,255,0.1);
+      padding: 1.5rem 5vw 2rem;
+      flex-direction: column; gap: 1.2rem;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      font-size: 1rem; font-weight: 500; letter-spacing: 0.04em;
+      text-transform: uppercase; color: var(--white);
+      text-decoration: none; padding: 0.5rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    /* ─── HERO ──────────────────────────────────────────────── */
+    #hero {
+      position: relative; min-height: 100svh;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center;
+      padding: 80px 5vw 60px;
+      overflow: hidden;
+    }
+
+    /* Animated gradient mesh */
+    .hero-bg {
+      position: absolute; inset: 0; z-index: 0;
+      background: var(--navy);
+    }
+    .hero-bg::before, .hero-bg::after,
+    .hero-blob1, .hero-blob2, .hero-blob3 {
+      content: ''; position: absolute; border-radius: 50%;
+      filter: blur(80px); opacity: 0.55;
+    }
+    .hero-bg::before {
+      width: 700px; height: 700px; top: -200px; left: -150px;
+      background: radial-gradient(circle, rgba(0,80,120,0.6) 0%, transparent 70%);
+      animation: floatA 18s ease-in-out infinite;
+    }
+    .hero-bg::after {
+      width: 500px; height: 500px; bottom: -100px; right: -100px;
+      background: radial-gradient(circle, rgba(0,245,255,0.12) 0%, transparent 70%);
+      animation: floatB 14s ease-in-out infinite reverse;
+    }
+    .hero-blob1 {
+      width: 400px; height: 400px; top: 10%; left: 55%;
+      background: radial-gradient(circle, rgba(255,184,0,0.08) 0%, transparent 70%);
+      animation: floatC 20s ease-in-out infinite;
+    }
+    .hero-blob2 {
+      width: 300px; height: 300px; top: 50%; left: 20%;
+      background: radial-gradient(circle, rgba(0,245,255,0.1) 0%, transparent 70%);
+      animation: floatA 16s ease-in-out infinite 4s;
+    }
+    .hero-blob3 {
+      width: 600px; height: 600px; top: 30%; left: 30%;
+      background: radial-gradient(circle, rgba(10,20,50,0.9) 0%, transparent 70%);
+      animation: floatB 22s ease-in-out infinite 2s;
+    }
+
+    /* Particle canvas */
+    #particles { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
+
+    /* Grid overlay */
+    .hero-grid {
+      position: absolute; inset: 0; z-index: 1;
+      background-image:
+        linear-gradient(rgba(0,245,255,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,245,255,0.025) 1px, transparent 1px);
+      background-size: 60px 60px;
+      mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 40%, transparent 100%);
+      -webkit-mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 40%, transparent 100%);
+    }
+
+    @keyframes floatA {
+      0%,100% { transform: translate(0,0) scale(1); }
+      33%  { transform: translate(60px,-40px) scale(1.1); }
+      66%  { transform: translate(-30px, 50px) scale(0.95); }
+    }
+    @keyframes floatB {
+      0%,100% { transform: translate(0,0) scale(1); }
+      50%  { transform: translate(-50px, 30px) scale(1.08); }
+    }
+    @keyframes floatC {
+      0%,100% { transform: translate(0,0) scale(1); }
+      40%  { transform: translate(40px, 60px) scale(1.15); }
+      80%  { transform: translate(-20px,-30px) scale(0.9); }
+    }
+
+    .hero-content { position: relative; z-index: 2; max-width: 860px; }
+
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      font-size: 0.75rem; font-weight: 600;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--cyan);
+      border: 1px solid rgba(0,245,255,0.3);
+      border-radius: 100px;
+      padding: 0.4rem 1.1rem;
+      margin-bottom: 1.8rem;
+      background: rgba(0,245,255,0.05);
+    }
+    .hero-eyebrow::before {
+      content: '';
+      display: inline-block; width: 6px; height: 6px;
+      background: var(--cyan); border-radius: 50%;
+      box-shadow: 0 0 8px var(--cyan);
+      animation: pulse 2s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%,100% { opacity: 1; transform: scale(1); }
+      50%  { opacity: 0.4; transform: scale(0.7); }
+    }
+
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(3.5rem, 10vw, 7.5rem);
+      font-weight: 800; line-height: 0.92;
+      letter-spacing: -0.04em;
+      margin-bottom: 0.15em;
+    }
+    .hero-title .line1 { display: block; color: var(--white); }
+    .hero-title .line2 {
+      display: block;
+      background: linear-gradient(135deg, var(--cyan) 0%, #00a8ff 50%, var(--amber) 100%);
+      -webkit-background-clip: text; background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .hero-title .line3 {
+      display: block; color: rgba(232,240,254,0.35);
+      font-size: 0.55em; font-weight: 700; letter-spacing: 0.02em;
+      margin-top: 0.3em;
+    }
+
+    .hero-tagline {
+      font-size: clamp(1rem, 2.5vw, 1.25rem);
+      font-weight: 300; color: rgba(232,240,254,0.65);
+      margin: 1.8rem auto 2.8rem;
+      max-width: 560px; line-height: 1.5;
+    }
+    .hero-tagline strong { color: var(--white); font-weight: 500; }
+
+    /* Countdown */
+    .countdown {
+      display: flex; gap: 1.2rem; justify-content: center;
+      margin-bottom: 2.8rem; flex-wrap: wrap;
+    }
+    .cd-unit {
+      display: flex; flex-direction: column; align-items: center;
+      min-width: 72px;
+    }
+    .cd-num {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 5vw, 2.8rem);
+      font-weight: 800; line-height: 1;
+      color: var(--white);
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 10px;
+      padding: 0.4rem 0.9rem;
+      min-width: 72px; text-align: center;
+      box-shadow: 0 0 20px rgba(0,245,255,0.07), inset 0 1px 0 rgba(255,255,255,0.05);
+    }
+    .cd-label {
+      font-size: 0.65rem; font-weight: 600;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--muted); margin-top: 0.5rem;
+    }
+    .cd-sep {
+      font-family: var(--font-display);
+      font-size: 2rem; font-weight: 700;
+      color: var(--cyan); align-self: flex-start;
+      padding-top: 0.3rem; opacity: 0.5;
+    }
+
+    .hero-cta {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      font-family: var(--font-display);
+      font-size: 1rem; font-weight: 700;
+      letter-spacing: 0.06em;
+      color: var(--navy);
+      background: var(--cyan);
+      border: none; border-radius: 8px;
+      padding: 1rem 2.4rem;
+      cursor: pointer; text-decoration: none;
+      transition: background var(--transition), box-shadow var(--transition), transform var(--transition);
+      box-shadow: 0 0 30px rgba(0,245,255,0.3);
+    }
+    .hero-cta:hover {
+      background: #fff;
+      box-shadow: 0 0 50px rgba(0,245,255,0.6), 0 4px 20px rgba(0,0,0,0.4);
+      transform: translateY(-3px);
+    }
+    .hero-cta svg { transition: transform var(--transition); }
+    .hero-cta:hover svg { transform: translateY(3px); }
+
+    /* Scroll indicator */
+    .hero-scroll {
+      position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%);
+      z-index: 2; display: flex; flex-direction: column; align-items: center;
+      gap: 0.4rem; opacity: 0.35;
+    }
+    .hero-scroll span { font-size: 0.65rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
+    .scroll-line {
+      width: 1px; height: 40px;
+      background: linear-gradient(to bottom, var(--muted), transparent);
+      animation: scrollDrop 2s ease-in-out infinite;
+    }
+    @keyframes scrollDrop {
+      0%   { transform: scaleY(0); transform-origin: top; opacity: 1; }
+      50%  { transform: scaleY(1); transform-origin: top; opacity: 1; }
+      51%  { transform: scaleY(1); transform-origin: bottom; }
+      100% { transform: scaleY(0); transform-origin: bottom; opacity: 0; }
+    }
+
+    /* ─── DIAGONAL DIVIDER ──────────────────────────────────── */
+    .divider-clip {
+      height: 80px; margin-top: -1px;
+      background: var(--navy2);
+      clip-path: polygon(0 0, 100% 0, 100% 100%, 0 40%);
+    }
+    .divider-clip.alt {
+      background: var(--navy);
+      clip-path: polygon(0 0, 100% 0, 100% 40%, 0 100%);
+    }
+    .divider-clip.back {
+      background: var(--navy);
+      clip-path: polygon(0 0, 100% 40%, 100% 100%, 0 100%);
+    }
+
+    /* ─── SECTIONS BASE ─────────────────────────────────────── */
+    section { padding: 100px 5vw; }
+    .section-inner { max-width: 1100px; margin: 0 auto; }
+    .section-tag {
+      display: inline-block;
+      font-size: 0.7rem; font-weight: 600;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--amber);
+      margin-bottom: 1rem;
+    }
+    .section-tag::before { content: '// '; opacity: 0.5; }
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 800; line-height: 1.05;
+      letter-spacing: -0.03em;
+      color: var(--white);
+      margin-bottom: 1.5rem;
+    }
+    .section-title em {
+      font-style: normal;
+      color: var(--cyan);
+    }
+
+    /* Fade-in animation */
+    .fade-up {
+      opacity: 0; transform: translateY(32px);
+      transition: opacity 0.7s cubic-bezier(0.4,0,0.2,1),
+                  transform 0.7s cubic-bezier(0.4,0,0.2,1);
+    }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+    /* ─── ABOUT ─────────────────────────────────────────────── */
+    #about { background: var(--navy2); }
+    .about-text {
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      font-weight: 300; color: rgba(232,240,254,0.72);
+      max-width: 680px; margin-bottom: 3rem;
+      line-height: 1.75;
+    }
+    .about-text strong { color: var(--white); font-weight: 500; }
+
+    .stat-pills {
+      display: flex; gap: 1rem; flex-wrap: wrap;
+    }
+    .pill {
+      display: flex; align-items: center; gap: 0.7rem;
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 100px; padding: 0.7rem 1.4rem;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      transition: border-color var(--transition), box-shadow var(--transition), transform var(--transition);
+    }
+    .pill:hover {
+      border-color: rgba(0,245,255,0.4);
+      box-shadow: 0 0 20px rgba(0,245,255,0.1);
+      transform: translateY(-2px);
+    }
+    .pill-num {
+      font-family: var(--font-display);
+      font-size: 1.4rem; font-weight: 800;
+      color: var(--cyan); line-height: 1;
+    }
+    .pill-label {
+      font-size: 0.85rem; font-weight: 500;
+      color: rgba(232,240,254,0.65);
+    }
+
+    /* ─── SPEAKERS ──────────────────────────────────────────── */
+    #speakers { background: var(--navy); }
+    .speakers-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1.4rem; margin-top: 3rem;
+    }
+    .speaker-card {
+      position: relative;
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 16px; padding: 2rem 1.5rem;
+      text-align: center;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      transition: border-color var(--transition), box-shadow var(--transition), transform var(--transition);
+      overflow: hidden;
+    }
+    .speaker-card::before {
+      content: ''; position: absolute; inset: 0; border-radius: 16px;
+      background: radial-gradient(circle at 50% 0%, rgba(0,245,255,0.05) 0%, transparent 60%);
+      opacity: 0; transition: opacity var(--transition);
+    }
+    .speaker-card:hover { border-color: rgba(0,245,255,0.4); transform: translateY(-6px); }
+    .speaker-card:hover::before { opacity: 1; }
+    .speaker-card:hover { box-shadow: 0 20px 60px rgba(0,0,0,0.4), 0 0 30px rgba(0,245,255,0.1); }
+
+    .avatar {
+      width: 80px; height: 80px; border-radius: 50%;
+      margin: 0 auto 1.2rem;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-display); font-weight: 800;
+      font-size: 1.5rem; color: var(--navy);
+      border: 2px solid rgba(0,245,255,0.3);
+      position: relative; overflow: hidden;
+    }
+    .avatar::after {
+      content: ''; position: absolute; inset: -2px;
+      border-radius: 50%;
+      background: conic-gradient(var(--cyan), transparent, var(--cyan));
+      opacity: 0; transition: opacity var(--transition);
+      animation: spin 3s linear infinite;
+    }
+    .speaker-card:hover .avatar::after { opacity: 0.6; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .avatar-inner {
+      position: relative; z-index: 1;
+      width: 76px; height: 76px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-display); font-weight: 800;
+      font-size: 1.5rem;
+    }
+
+    .speaker-name {
+      font-family: var(--font-display);
+      font-size: 1rem; font-weight: 700; letter-spacing: -0.01em;
+      color: var(--white); margin-bottom: 0.3rem;
+    }
+    .speaker-role {
+      font-size: 0.78rem; color: var(--muted); line-height: 1.4;
+    }
+    .speaker-tag {
+      display: inline-block;
+      margin-top: 0.8rem; font-size: 0.68rem; font-weight: 600;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--amber);
+      border: 1px solid rgba(255,184,0,0.25);
+      border-radius: 4px; padding: 0.2rem 0.5rem;
+    }
+
+    /* Ghost card */
+    .speaker-card.ghost {
+      border-style: dashed;
+      border-color: rgba(255,255,255,0.1);
+    }
+    .speaker-card.ghost .avatar-inner {
+      border: 2px dashed rgba(255,255,255,0.15);
+      color: rgba(255,255,255,0.2);
+    }
+    .speaker-card.ghost .speaker-name { color: rgba(232,240,254,0.3); }
+    .speaker-card.ghost .speaker-role { color: rgba(90,106,138,0.5); }
+    .speaker-card.ghost:hover { border-color: rgba(0,245,255,0.2); transform: translateY(-3px); }
+
+    /* Partners */
+    .partners-title {
+      font-family: var(--font-display);
+      font-size: 0.75rem; font-weight: 600;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--muted); margin: 4rem 0 1.5rem;
+    }
+    .partners-grid {
+      display: flex; flex-wrap: wrap; gap: 1rem; align-items: center;
+    }
+    .partner-card {
+      display: flex; align-items: center; gap: 0.8rem;
+      background: var(--glass-bg);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 10px; padding: 0.9rem 1.4rem;
+      min-width: 160px;
+      transition: border-color var(--transition), box-shadow var(--transition), transform var(--transition);
+    }
+    .partner-card:hover {
+      border-color: rgba(0,245,255,0.25);
+      box-shadow: 0 0 20px rgba(0,245,255,0.07);
+      transform: translateY(-2px);
+    }
+    .partner-icon {
+      width: 36px; height: 36px; border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 800; font-size: 0.75rem; flex-shrink: 0;
+    }
+    .partner-name {
+      font-family: var(--font-display);
+      font-size: 0.9rem; font-weight: 700; letter-spacing: -0.01em;
+      color: rgba(232,240,254,0.75);
+    }
+
+    /* ─── WAITLIST ──────────────────────────────────────────── */
+    #waitlist {
+      background: var(--navy2);
+      position: relative; overflow: hidden;
+    }
+    #waitlist::before {
+      content: ''; position: absolute;
+      top: -200px; left: 50%; transform: translateX(-50%);
+      width: 600px; height: 600px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(0,245,255,0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .waitlist-inner {
+      max-width: 640px; margin: 0 auto; text-align: center;
+      position: relative; z-index: 1;
+    }
+    .waitlist-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.2rem, 6vw, 3.8rem);
+      font-weight: 800; line-height: 1.05;
+      letter-spacing: -0.04em;
+      color: var(--white); margin-bottom: 1rem;
+    }
+    .waitlist-title em {
+      font-style: normal;
+      background: linear-gradient(90deg, var(--cyan), var(--amber));
+      -webkit-background-clip: text; background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .waitlist-sub {
+      font-size: 1rem; font-weight: 300;
+      color: rgba(232,240,254,0.55);
+      margin-bottom: 2.8rem; line-height: 1.6;
+    }
+
+    .waitlist-form {
+      display: flex; gap: 0.8rem; flex-wrap: wrap;
+      justify-content: center;
+    }
+    .waitlist-form input[type="email"] {
+      flex: 1; min-width: 260px; max-width: 380px;
+      font-family: var(--font-body); font-size: 1rem;
+      color: var(--white); caret-color: var(--cyan);
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 8px; padding: 0.9rem 1.2rem;
+      outline: none;
+      transition: border-color var(--transition), box-shadow var(--transition);
+    }
+    .waitlist-form input[type="email"]::placeholder { color: rgba(232,240,254,0.28); }
+    .waitlist-form input[type="email"]:focus {
+      border-color: rgba(0,245,255,0.5);
+      box-shadow: 0 0 0 3px rgba(0,245,255,0.1);
+    }
+    .waitlist-btn {
+      font-family: var(--font-display);
+      font-size: 0.95rem; font-weight: 700;
+      letter-spacing: 0.06em;
+      color: var(--navy); background: var(--cyan);
+      border: none; border-radius: 8px;
+      padding: 0.9rem 2rem; cursor: pointer; white-space: nowrap;
+      transition: background var(--transition), box-shadow var(--transition), transform var(--transition);
+      box-shadow: 0 0 24px rgba(0,245,255,0.3);
+      min-height: 48px;
+    }
+    .waitlist-btn:hover {
+      background: #fff;
+      box-shadow: 0 0 40px rgba(0,245,255,0.55);
+      transform: translateY(-2px);
+    }
+
+    /* Confirmation */
+    .waitlist-confirm {
+      display: none; text-align: center;
+    }
+    .waitlist-confirm.show { display: block; }
+    .confirm-icon {
+      width: 72px; height: 72px; border-radius: 50%;
+      background: rgba(0,245,255,0.1);
+      border: 2px solid rgba(0,245,255,0.4);
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 1.5rem;
+      animation: popIn 0.5s cubic-bezier(0.175,0.885,0.32,1.275);
+    }
+    @keyframes popIn {
+      from { transform: scale(0); opacity: 0; }
+      to   { transform: scale(1); opacity: 1; }
+    }
+    .confirm-title {
+      font-family: var(--font-display);
+      font-size: 1.6rem; font-weight: 800;
+      color: var(--cyan); margin-bottom: 0.5rem;
+    }
+    .confirm-msg {
+      font-size: 0.95rem; color: rgba(232,240,254,0.6);
+    }
+
+    /* ─── FOOTER ────────────────────────────────────────────── */
+    footer {
+      background: var(--navy);
+      border-top: 1px solid rgba(255,255,255,0.05);
+      padding: 2.5rem 5vw;
+    }
+    .footer-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 1rem;
+    }
+    .footer-logo {
+      font-family: var(--font-display);
+      font-weight: 800; font-size: 1rem; letter-spacing: -0.02em;
+      color: rgba(232,240,254,0.4);
+    }
+    .footer-logo span { color: var(--cyan); }
+    .footer-copy {
+      font-size: 0.78rem; color: var(--muted); letter-spacing: 0.02em;
+    }
+    .footer-socials {
+      display: flex; gap: 0.8rem;
+    }
+    .social-btn {
+      width: 40px; height: 40px; border-radius: 8px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--muted); text-decoration: none;
+      transition: color var(--transition), border-color var(--transition), box-shadow var(--transition), transform var(--transition);
+    }
+    .social-btn:hover {
+      color: var(--cyan); border-color: rgba(0,245,255,0.35);
+      box-shadow: 0 0 14px rgba(0,245,255,0.15);
+      transform: translateY(-2px);
+    }
+
+    /* ─── MOBILE STICKY PILL ────────────────────────────────── */
+    .sticky-pill {
+      display: none;
+      position: fixed; bottom: 1.5rem; left: 50%; transform: translateX(-50%);
+      z-index: 200;
+      font-family: var(--font-display);
+      font-size: 0.9rem; font-weight: 700; letter-spacing: 0.06em;
+      color: var(--navy); background: var(--cyan);
+      border: none; border-radius: 100px;
+      padding: 0.85rem 2rem;
+      box-shadow: 0 6px 30px rgba(0,245,255,0.45);
+      cursor: pointer; text-decoration: none; white-space: nowrap;
+      animation: stickyIn 0.4s cubic-bezier(0.175,0.885,0.32,1.275) 1.5s both;
+    }
+    @keyframes stickyIn {
+      from { transform: translateX(-50%) translateY(80px); opacity: 0; }
+      to   { transform: translateX(-50%) translateY(0); opacity: 1; }
+    }
+
+    /* ─── RESPONSIVE ────────────────────────────────────────── */
+    @media (max-width: 767px) {
+      .nav-links, .nav-cta { display: none; }
+      .hamburger { display: flex; }
+      section { padding: 70px 5vw; }
+      .sticky-pill { display: flex; align-items: center; gap: 0.5rem; }
+      .speakers-grid { grid-template-columns: repeat(2, 1fr); }
+      .waitlist-form { flex-direction: column; align-items: stretch; }
+      .waitlist-form input[type="email"] { min-width: unset; max-width: unset; }
+      .footer-inner { flex-direction: column; align-items: flex-start; }
+      .cd-sep { display: none; }
+      .countdown { gap: 0.7rem; }
+      .cd-num { font-size: 1.8rem; min-width: 58px; }
+    }
+    @media (max-width: 480px) {
+      .speakers-grid { grid-template-columns: 1fr 1fr; gap: 0.9rem; }
+      .stat-pills { flex-direction: column; }
+      .partners-grid { gap: 0.8rem; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ─── BLOBS (appended via JS) ─────────────────────────── -->
+
+  <!-- ─── NAV ──────────────────────────────────────────────── -->
+  <header id="nav" role="banner">
+    <a class="nav-logo" href="#hero" aria-label="AI Melilla 2025">
+      AI<span>·</span>MEL<span>2025</span>
+    </a>
+    <nav aria-label="Navegación principal">
+      <ul class="nav-links" role="list">
+        <li><a href="#about">El evento</a></li>
+        <li><a href="#speakers">Ponentes</a></li>
+        <li><a href="#waitlist">Waitlist</a></li>
+      </ul>
+    </nav>
+    <a class="nav-cta" href="#waitlist" aria-label="Apúntate a la lista de espera">Apúntate</a>
+    <button class="hamburger" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobile-menu">
+      <span></span><span></span><span></span>
+    </button>
+  </header>
+
+  <div class="mobile-menu" id="mobile-menu" role="navigation" aria-label="Menú móvil">
+    <a href="#about">El evento</a>
+    <a href="#speakers">Ponentes</a>
+    <a href="#waitlist">Waitlist</a>
+  </div>
+
+  <!-- ─── HERO ─────────────────────────────────────────────── -->
+  <section id="hero" aria-label="Portada">
+    <div class="hero-bg" aria-hidden="true">
+      <div class="hero-blob1"></div>
+      <div class="hero-blob2"></div>
+      <div class="hero-blob3"></div>
+    </div>
+    <canvas id="particles" aria-hidden="true"></canvas>
+    <div class="hero-grid" aria-hidden="true"></div>
+
+    <div class="hero-content">
+      <div class="hero-eyebrow" aria-label="Melilla · España">Melilla · España</div>
+
+      <h1 class="hero-title">
+        <span class="line1">Artificial</span>
+        <span class="line2">Intelligence</span>
+        <span class="line3">Melilla — 20 · 21 · 22 Mayo 2025</span>
+      </h1>
+
+      <p class="hero-tagline">
+        Tres días donde la <strong>IA deja de ser teoría</strong> y se convierte en tu ventaja competitiva.
+        Ponentes, demos en vivo y networking en el sur de España.
+      </p>
+
+      <div class="countdown" aria-label="Cuenta atrás para el evento">
+        <div class="cd-unit">
+          <div class="cd-num" id="cd-days">--</div>
+          <div class="cd-label">Días</div>
+        </div>
+        <div class="cd-sep" aria-hidden="true">:</div>
+        <div class="cd-unit">
+          <div class="cd-num" id="cd-hours">--</div>
+          <div class="cd-label">Horas</div>
+        </div>
+        <div class="cd-sep" aria-hidden="true">:</div>
+        <div class="cd-unit">
+          <div class="cd-num" id="cd-mins">--</div>
+          <div class="cd-label">Min</div>
+        </div>
+        <div class="cd-sep" aria-hidden="true">:</div>
+        <div class="cd-unit">
+          <div class="cd-num" id="cd-secs">--</div>
+          <div class="cd-label">Seg</div>
+        </div>
+      </div>
+
+      <a class="hero-cta" href="#waitlist" aria-label="Únete a la lista de espera">
+        Únete a la waitlist
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+          <path d="M8 3L8 13M8 13L4 9M8 13L12 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+    </div>
+
+    <div class="hero-scroll" aria-hidden="true">
+      <span>Scroll</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- ─── ABOUT ─────────────────────────────────────────────── -->
+  <div class="divider-clip" aria-hidden="true"></div>
+  <section id="about" aria-labelledby="about-title">
+    <div class="section-inner">
+      <div class="fade-up">
+        <span class="section-tag">El evento</span>
+        <h2 class="section-title" id="about-title">
+          IA de verdad,<br /><em>en Melilla.</em>
+        </h2>
+        <p class="about-text">
+          <strong>AI Melilla 2025</strong> es el primer gran evento de inteligencia artificial
+          celebrado en el sur de España. Durante tres días, referentes del sector traen las
+          últimas tendencias en modelos de lenguaje, automatización y ética de la IA directamente
+          a nuestra ciudad — sin excusas para no estar al día.
+        </p>
+      </div>
+      <div class="stat-pills fade-up" style="transition-delay:0.15s">
+        <div class="pill">
+          <span class="pill-num">3</span>
+          <span class="pill-label">días de contenido</span>
+        </div>
+        <div class="pill">
+          <span class="pill-num">5+</span>
+          <span class="pill-label">ponentes confirmados</span>
+        </div>
+        <div class="pill">
+          <span class="pill-num" style="color:var(--amber)">MEL</span>
+          <span class="pill-label">Melilla, España</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── SPEAKERS ─────────────────────────────────────────── -->
+  <div class="divider-clip alt" aria-hidden="true"></div>
+  <section id="speakers" aria-labelledby="speakers-title">
+    <div class="section-inner">
+      <div class="fade-up">
+        <span class="section-tag">Ponentes</span>
+        <h2 class="section-title" id="speakers-title">
+          Quién viene a<br /><em>contar la historia.</em>
+        </h2>
+      </div>
+
+      <div class="speakers-grid" role="list">
+        <!-- Brais Moure -->
+        <article class="speaker-card fade-up" role="listitem" style="transition-delay:0.05s">
+          <div class="avatar" aria-hidden="true">
+            <div class="avatar-inner" style="background:linear-gradient(135deg,#1a3a5c,#0d2240)">BM</div>
+          </div>
+          <div class="speaker-name">Brais Moure</div>
+          <div class="speaker-role">Developer & Divulgador<br />Tecnológico</div>
+          <span class="speaker-tag">Confirmado</span>
+        </article>
+
+        <!-- Microsoft -->
+        <article class="speaker-card fade-up" role="listitem" style="transition-delay:0.1s">
+          <div class="avatar" aria-hidden="true">
+            <div class="avatar-inner" style="background:linear-gradient(135deg,#0066b3,#00338e)">MS</div>
+          </div>
+          <div class="speaker-name">Microsoft</div>
+          <div class="speaker-role">AI &amp; Cloud<br />Division</div>
+          <span class="speaker-tag">Confirmado</span>
+        </article>
+
+        <!-- Eurecat -->
+        <article class="speaker-card fade-up" role="listitem" style="transition-delay:0.15s">
+          <div class="avatar" aria-hidden="true">
+            <div class="avatar-inner" style="background:linear-gradient(135deg,#1e4d3c,#0d2e23)">EU</div>
+          </div>
+          <div class="speaker-name">Eurecat</div>
+          <div class="speaker-role">Centro Tecnológico<br />de Catalunya</div>
+          <span class="speaker-tag">Confirmado</span>
+        </article>
+
+        <!-- Gigas -->
+        <article class="speaker-card fade-up" role="listitem" style="transition-delay:0.2s">
+          <div class="avatar" aria-hidden="true">
+            <div class="avatar-inner" style="background:linear-gradient(135deg,#3a1e5c,#200d38)">GG</div>
+          </div>
+          <div class="speaker-name">Gigas</div>
+          <div class="speaker-role">Cloud Hosting &amp;<br />Infrastructure</div>
+          <span class="speaker-tag">Confirmado</span>
+        </article>
+
+        <!-- Freepik -->
+        <article class="speaker-card fade-up" role="listitem" style="transition-delay:0.25s">
+          <div class="avatar" aria-hidden="true">
+            <div class="avatar-inner" style="background:linear-gradient(135deg,#5c3a00,#382200)">FP</div>
+          </div>
+          <div class="speaker-name">Freepik</div>
+          <div class="speaker-role">AI Creative &amp;<br />Design Tools</div>
+          <span class="speaker-tag">Confirmado</span>
+        </article>
+
+        <!-- Ghost card -->
+        <article class="speaker-card ghost fade-up" role="listitem" aria-label="Más ponentes por anunciar" style="transition-delay:0.3s">
+          <div class="avatar" aria-hidden="true">
+            <div class="avatar-inner">?</div>
+          </div>
+          <div class="speaker-name">Pronto...</div>
+          <div class="speaker-role">Más ponentes<br />por anunciar</div>
+        </article>
+      </div>
+
+      <!-- Partners -->
+      <p class="partners-title fade-up" style="transition-delay:0.1s">Organizan &amp; colaboran</p>
+      <div class="partners-grid fade-up" style="transition-delay:0.18s">
+        <div class="partner-card">
+          <div class="partner-icon" style="background:linear-gradient(135deg,#0078d4,#005ba1)">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+              <rect x="1" y="1" width="8" height="8" fill="#fff" opacity="0.9"/>
+              <rect x="11" y="1" width="8" height="8" fill="#fff" opacity="0.9"/>
+              <rect x="1" y="11" width="8" height="8" fill="#fff" opacity="0.9"/>
+              <rect x="11" y="11" width="8" height="8" fill="#fff" opacity="0.9"/>
+            </svg>
+          </div>
+          <span class="partner-name">Microsoft</span>
+        </div>
+        <div class="partner-card">
+          <div class="partner-icon" style="background:linear-gradient(135deg,#2e7d52,#1a4d32)">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+              <circle cx="10" cy="10" r="7" stroke="#fff" stroke-width="2"/>
+              <path d="M10 6v4l2.5 2.5" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <span class="partner-name">Eurecat</span>
+        </div>
+        <div class="partner-card">
+          <div class="partner-icon" style="background:linear-gradient(135deg,#5e35b1,#3a1f8a)">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+              <path d="M3 10 L10 3 L17 10 L10 17Z" stroke="#fff" stroke-width="2"/>
+            </svg>
+          </div>
+          <span class="partner-name">Gigas</span>
+        </div>
+        <div class="partner-card">
+          <div class="partner-icon" style="background:linear-gradient(135deg,#e8730c,#b85500)">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+              <rect x="3" y="5" width="14" height="10" rx="2" stroke="#fff" stroke-width="2"/>
+              <path d="M7 10h6M10 7v6" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <span class="partner-name">Freepik</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── WAITLIST ──────────────────────────────────────────── -->
+  <div class="divider-clip back" aria-hidden="true"></div>
+  <section id="waitlist" aria-labelledby="waitlist-title">
+    <div class="waitlist-inner">
+      <div class="fade-up">
+        <span class="section-tag">Waitlist</span>
+        <h2 class="waitlist-title" id="waitlist-title">
+          Sé el primero<br />en <em>saberlo.</em>
+        </h2>
+        <p class="waitlist-sub">
+          Las plazas son limitadas. Déjanos tu email y te avisamos
+          en cuanto abramos el registro oficial.
+        </p>
+      </div>
+
+      <div id="waitlist-form-wrap" class="fade-up" style="transition-delay:0.12s">
+        <form class="waitlist-form" id="wl-form" novalidate aria-label="Formulario de lista de espera">
+          <label for="wl-email" class="sr-only">Correo electrónico</label>
+          <input
+            type="email"
+            id="wl-email"
+            name="email"
+            placeholder="tu@email.com"
+            autocomplete="email"
+            required
+            aria-required="true"
+          />
+          <button type="submit" class="waitlist-btn">Apuntarme →</button>
+        </form>
+      </div>
+
+      <div class="waitlist-confirm" id="wl-confirm" role="status" aria-live="polite" aria-atomic="true">
+        <div class="confirm-icon" aria-hidden="true">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+            <path d="M7 16.5L13 22.5L25 10" stroke="#00f5ff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <p class="confirm-title">¡Apuntado!</p>
+        <p class="confirm-msg">Te avisamos en cuanto abramos registro.<br />Hasta pronto en Melilla 🤙</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── FOOTER ─────────────────────────────────────────────── -->
+  <footer role="contentinfo">
+    <div class="footer-inner">
+      <span class="footer-logo">AI<span>·</span>MEL 2025</span>
+      <span class="footer-copy">© 2025 AI Melilla. Todos los derechos reservados.</span>
+      <div class="footer-socials" aria-label="Redes sociales">
+        <a class="social-btn" href="#" aria-label="Twitter / X">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+          </svg>
+        </a>
+        <a class="social-btn" href="#" aria-label="LinkedIn">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/>
+            <circle cx="4" cy="4" r="2"/>
+          </svg>
+        </a>
+        <a class="social-btn" href="#" aria-label="Instagram">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="2" width="20" height="20" rx="5"/>
+            <circle cx="12" cy="12" r="4"/>
+            <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ─── STICKY MOBILE PILL ───────────────────────────────── -->
+  <a class="sticky-pill" href="#waitlist" aria-label="Únete a la waitlist">
+    <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+      <path d="M8 2a6 6 0 100 12A6 6 0 008 2zm0 1a5 5 0 110 10A5 5 0 018 3zm-.5 2v4l3 1.5.5-.87L8.5 8.5V5z" fill="currentColor"/>
+    </svg>
+    Únete a la waitlist
+  </a>
+
+  <!-- Visually hidden utility class -->
+  <style>.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}</style>
+
+  <script>
+  (() => {
+    'use strict';
+
+    /* ── PARTICLES ─────────────────────────────────────────── */
+    const canvas = document.getElementById('particles');
+    const ctx = canvas.getContext('2d');
+    let W, H, particles = [];
+    const NUM = window.innerWidth < 768 ? 40 : 80;
+
+    function resize() {
+      W = canvas.width = window.innerWidth;
+      H = canvas.height = window.innerHeight;
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    class Particle {
+      constructor() { this.reset(true); }
+      reset(init) {
+        this.x = Math.random() * W;
+        this.y = init ? Math.random() * H : H + 5;
+        this.r = Math.random() * 1.2 + 0.3;
+        this.vx = (Math.random() - 0.5) * 0.3;
+        this.vy = -(Math.random() * 0.4 + 0.15);
+        this.alpha = Math.random() * 0.5 + 0.1;
+        this.color = Math.random() > 0.7 ? '#ffb800' : '#00f5ff';
+      }
+      update() {
+        this.x += this.vx; this.y += this.vy;
+        if (this.y < -10) this.reset(false);
+      }
+      draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+        ctx.fillStyle = this.color;
+        ctx.globalAlpha = this.alpha;
+        ctx.fill();
+      }
+    }
+
+    for (let i = 0; i < NUM; i++) particles.push(new Particle());
+
+    function animate() {
+      ctx.clearRect(0, 0, W, H);
+      ctx.globalAlpha = 1;
+      particles.forEach(p => { p.update(); p.draw(); });
+      requestAnimationFrame(animate);
+    }
+    animate();
+
+    /* ── COUNTDOWN ─────────────────────────────────────────── */
+    const target = new Date('2025-05-20T09:00:00');
+    const pad = n => String(n).padStart(2, '0');
+
+    function tick() {
+      const now = new Date();
+      const diff = target - now;
+      if (diff <= 0) {
+        document.getElementById('cd-days').textContent  = '00';
+        document.getElementById('cd-hours').textContent = '00';
+        document.getElementById('cd-mins').textContent  = '00';
+        document.getElementById('cd-secs').textContent  = '00';
+        return;
+      }
+      const days  = Math.floor(diff / 86400000);
+      const hours = Math.floor((diff % 86400000) / 3600000);
+      const mins  = Math.floor((diff % 3600000)  / 60000);
+      const secs  = Math.floor((diff % 60000)    / 1000);
+      document.getElementById('cd-days').textContent  = pad(days);
+      document.getElementById('cd-hours').textContent = pad(hours);
+      document.getElementById('cd-mins').textContent  = pad(mins);
+      document.getElementById('cd-secs').textContent  = pad(secs);
+    }
+    tick();
+    setInterval(tick, 1000);
+
+    /* ── NAV SCROLL ────────────────────────────────────────── */
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 40);
+    }, { passive: true });
+
+    /* ── HAMBURGER ─────────────────────────────────────────── */
+    const ham = document.querySelector('.hamburger');
+    const mob = document.getElementById('mobile-menu');
+    ham.addEventListener('click', () => {
+      const open = mob.classList.toggle('open');
+      ham.classList.toggle('open', open);
+      ham.setAttribute('aria-expanded', String(open));
+    });
+    mob.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => {
+        mob.classList.remove('open');
+        ham.classList.remove('open');
+        ham.setAttribute('aria-expanded', 'false');
+      });
+    });
+
+    /* ── FADE-IN on scroll ─────────────────────────────────── */
+    const fadeEls = document.querySelectorAll('.fade-up');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    fadeEls.forEach(el => observer.observe(el));
+
+    /* ── WAITLIST FORM ─────────────────────────────────────── */
+    const form    = document.getElementById('wl-form');
+    const wrap    = document.getElementById('waitlist-form-wrap');
+    const confirm = document.getElementById('wl-confirm');
+
+    var APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz83__m0HIJ0ZW1hZY3o3zpKg_DAQ_7ABFidCzxEHPOCpjhlkXE1as069puDSe4-BzMmA/exec';
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      var emailInput = document.getElementById('wl-email');
+      var email = emailInput.value.trim();
+
+      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        emailInput.focus();
+        emailInput.style.borderColor = 'rgba(255,80,80,0.6)';
+        setTimeout(function() { emailInput.style.borderColor = ''; }, 2000);
+        return;
+      }
+
+      var btn = form.querySelector('.waitlist-btn');
+      btn.textContent = 'Enviando…';
+      btn.disabled = true;
+
+      fetch(APPS_SCRIPT_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain' },
+        body: JSON.stringify({ email: email })
+      })
+      .then(function(res) { return res.json(); })
+      .then(function(data) {
+        if (data.result === 'success') {
+          wrap.style.opacity = '0';
+          wrap.style.transform = 'translateY(-10px)';
+          wrap.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+          setTimeout(function() {
+            wrap.style.display = 'none';
+            confirm.classList.add('show');
+          }, 300);
+        } else {
+          btn.textContent = 'Apuntarme →';
+          btn.disabled = false;
+          emailInput.style.borderColor = 'rgba(255,80,80,0.6)';
+          setTimeout(function() { emailInput.style.borderColor = ''; }, 2000);
+        }
+      })
+      .catch(function() {
+        btn.textContent = 'Apuntarme →';
+        btn.disabled = false;
+        emailInput.style.borderColor = 'rgba(255,80,80,0.6)';
+        setTimeout(function() { emailInput.style.borderColor = ''; }, 2000);
+      });
+    });
+
+    /* ── SMOOTH CTA scroll ─────────────────────────────────── */
+    document.querySelectorAll('a[href="#waitlist"]').forEach(a => {
+      a.addEventListener('click', e => {
+        e.preventDefault();
+        document.getElementById('waitlist').scrollIntoView({ behavior: 'smooth' });
+        setTimeout(() => {
+          const inp = document.getElementById('wl-email');
+          if (inp) inp.focus();
+        }, 600);
+      });
+    });
+  })();
+  </script>
+</body>
+</html>
