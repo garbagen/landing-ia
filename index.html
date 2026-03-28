@@ -695,6 +695,17 @@
       .countdown { gap: 0.7rem; }
       .cd-num { font-size: 1.8rem; min-width: 58px; }
 
+      /* Hero layout */
+      #hero { padding: 100px 6vw 50px; justify-content: flex-start; padding-top: 110px; }
+      .hero-content { max-width: 100%; }
+      .hero-title { font-size: clamp(2.6rem, 11vw, 4rem); }
+      .hero-title .line3 { font-size: 0.42em; letter-spacing: 0; white-space: normal; }
+      .hero-tagline { font-size: 0.95rem; margin: 1.2rem auto 1.8rem; max-width: 100%; }
+      .hero-cta { font-size: 0.9rem; padding: 0.85rem 2rem; }
+      .hero-eyebrow { font-size: 0.68rem; margin-bottom: 1.2rem; }
+      .countdown { margin-bottom: 1.8rem; }
+      .hero-scroll { display: none; }
+
       /* Blobs — reducir para evitar overflow horizontal */
       .hero-bg::before { width: 320px; height: 320px; left: -80px; }
       .hero-bg::after  { width: 260px; height: 260px; right: -60px; }
@@ -704,9 +715,8 @@
       #waitlist::before { width: 300px; height: 300px; }
 
       /* Tipografía mínima legible */
-      .hero-eyebrow { font-size: 0.7rem; }
-      .section-tag   { font-size: 0.68rem; }
-      .cd-label      { font-size: 0.62rem; }
+      .section-tag { font-size: 0.68rem; }
+      .cd-label    { font-size: 0.62rem; }
 
       /* Ponentes */
       .speaker-card { padding: 1.5rem 1rem; }
@@ -734,8 +744,10 @@
       .speaker-name { font-size: 0.9rem; }
       .speaker-role { font-size: 0.72rem; }
 
-      /* Hero eyebrow y waitlist btn */
-      .hero-eyebrow { font-size: 0.65rem; padding: 0.4rem 0.9rem; }
+      /* Hero */
+      #hero { padding-top: 100px; }
+      .hero-title { font-size: clamp(2.2rem, 10vw, 3rem); }
+      .hero-eyebrow { font-size: 0.62rem; padding: 0.35rem 0.8rem; }
       .waitlist-btn { font-size: 0.85rem; padding: 0.9rem 1.6rem; }
 
       /* Footer */
