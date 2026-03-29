@@ -75,6 +75,7 @@
     color: #00f2ff;
     letter-spacing: -0.02em;
   }
+  .cd-desktop .cd-digit { font-size: inherit; }
 
   /* Speaker card hover */
   .speaker-card img { filter: grayscale(1) brightness(0.8); transition: filter 0.5s ease; }
@@ -154,8 +155,7 @@
 
         <!-- Title -->
         <h1 class="font-display leading-none tracking-tight" style="font-size:clamp(4.5rem,20vw,9rem);line-height:0.9">
-          IA<br/>
-          <span class="text-white/40">MEL</span><span class="text-cyan" style="font-size:1.18em;line-height:1">I</span><span class="text-white/40">LL</span><span class="text-cyan" style="font-size:1.18em;line-height:1">A</span><br/>
+          <span class="text-white/40">MEL</span><span class="text-cyan" style="font-size:1.45em;line-height:0.85;display:inline-block">I</span><span class="text-white/40">LL</span><span class="text-cyan" style="font-size:1.45em;line-height:0.85;display:inline-block">A</span><br/>
           <span class="text-white/20 text-[0.42em] font-grotesk font-bold tracking-widest">20 &amp; 21 MAYO 2026</span>
         </h1>
 
@@ -206,9 +206,9 @@
       </div><!-- end LEFT COLUMN -->
 
       <!-- RIGHT COLUMN: countdown desktop only -->
-      <div class="hidden md:flex md:flex-col md:items-center md:justify-center md:flex-shrink-0 md:w-80 border border-cyan/20 bg-cyan/5 backdrop-blur-sm p-10 gap-6">
+      <div class="hidden md:flex md:flex-col md:items-center md:justify-center md:flex-shrink-0 border border-cyan/20 bg-cyan/5 backdrop-blur-sm p-10 gap-6" style="min-width:0">
         <p class="font-grotesk text-[9px] tracking-[0.3em] text-muted uppercase">Cuenta atrás</p>
-        <div class="flex items-start gap-6">
+        <div class="cd-desktop flex items-start gap-4" style="font-size:clamp(2.4rem,4vw,4rem)">
           <div class="text-center">
             <div class="cd-digit" id="cd-days-d">--</div>
             <div class="font-grotesk text-[9px] text-muted tracking-widest uppercase mt-1">Días</div>
