@@ -113,18 +113,24 @@
 <body class="bg-bg text-white font-body overflow-x-hidden selection:bg-cyan selection:text-bg">
 
 <!-- ── HEADER ──────────────────────────────────────────── -->
-<header class="fixed top-0 left-0 w-full h-16 flex items-center justify-between px-5 z-50 bg-bg/70 backdrop-blur-xl border-b border-border">
+<header class="fixed top-0 left-0 w-full h-16 flex items-center justify-between px-5 md:px-10 z-50 bg-bg/70 backdrop-blur-xl border-b border-border">
   <div class="flex items-center gap-3">
-    <button id="menu-btn" aria-label="Abrir menú" class="flex items-center justify-center w-10 h-10 -ml-2 text-cyan hover:bg-surface-hi transition-colors">
+    <button id="menu-btn" aria-label="Abrir menú" class="flex items-center justify-center w-10 h-10 -ml-2 text-cyan hover:bg-surface-hi transition-colors md:hidden">
       <span class="material-symbols-outlined">menu</span>
     </button>
     <span class="font-display text-xl text-cyan tracking-widest">AI MELILLA <span class="text-amber">2026</span></span>
   </div>
-  <span class="material-symbols-outlined text-cyan animate-pulse2">sensors</span>
+  <!-- Desktop nav -->
+  <nav class="hidden md:flex items-center gap-8">
+    <a href="#ponentes" class="font-grotesk text-[11px] uppercase tracking-[0.2em] text-white/50 hover:text-cyan transition-colors">Ponentes</a>
+    <a href="#sobre" class="font-grotesk text-[11px] uppercase tracking-[0.2em] text-white/50 hover:text-cyan transition-colors">Evento</a>
+    <a href="#registro" class="font-grotesk text-[11px] uppercase tracking-[0.2em] px-5 py-2 border border-cyan text-cyan hover:bg-cyan hover:text-bg transition-colors">Registro</a>
+  </nav>
+  <span class="material-symbols-outlined text-cyan animate-pulse2 md:hidden">sensors</span>
 </header>
 
 <!-- ── HERO ──────────────────────────────────────────────── -->
-<section class="relative min-h-svh flex flex-col justify-end px-5 pb-14 pt-28 overflow-hidden clip-down bg-surface">
+<section class="relative min-h-svh flex flex-col justify-end md:justify-center pb-14 pt-28 md:pt-24 overflow-hidden clip-down bg-surface">
 
   <!-- Background mesh -->
   <div class="absolute inset-0 z-0">
@@ -134,7 +140,11 @@
   </div>
   <div class="scanlines"></div>
 
-  <div class="relative z-10 space-y-6 reveal" style="transition-delay:0.1s">
+  <div class="relative z-10 w-full reveal px-5 md:px-16 lg:px-24 max-w-[1400px] mx-auto" style="transition-delay:0.1s">
+    <div class="md:flex md:items-center md:justify-between md:gap-12">
+
+      <!-- LEFT COLUMN -->
+      <div class="space-y-6 max-w-xl">
 
     <!-- Eyebrow -->
     <div class="inline-flex items-center gap-2 px-3 py-1 border border-cyan/30 text-cyan font-grotesk text-[10px] tracking-[0.25em] uppercase bg-cyan/5">
@@ -162,7 +172,7 @@
     </div>
 
     <!-- Countdown -->
-    <div class="pt-2">
+        <div class="pt-2 md:hidden">
       <p class="font-grotesk text-[9px] tracking-[0.3em] text-muted uppercase mb-3">Cuenta atrás</p>
       <div class="flex items-start gap-4">
         <div class="text-center">
@@ -188,11 +198,42 @@
     </div>
 
     <!-- CTA -->
-    <a href="#registro" class="cta-btn inline-flex items-center justify-center gap-3 w-full py-5 bg-cyan text-bg font-display text-2xl tracking-widest uppercase transition-colors hover:bg-amber hover:text-bg">
-      APUNTARME
-      <span class="material-symbols-outlined">arrow_downward</span>
-    </a>
-  </div>
+        <a href="#registro" class="cta-btn inline-flex items-center justify-center gap-3 w-full md:w-auto md:px-12 py-5 bg-cyan text-bg font-display text-2xl tracking-widest uppercase transition-colors hover:bg-amber hover:text-bg">
+          APUNTARME
+          <span class="material-symbols-outlined">arrow_downward</span>
+        </a>
+
+      </div><!-- end LEFT COLUMN -->
+
+      <!-- RIGHT COLUMN: countdown desktop only -->
+      <div class="hidden md:flex md:flex-col md:items-center md:justify-center md:flex-shrink-0 border border-cyan/20 bg-cyan/5 backdrop-blur-sm p-10 gap-6">
+        <p class="font-grotesk text-[9px] tracking-[0.3em] text-muted uppercase">Cuenta atrás</p>
+        <div class="flex items-start gap-6">
+          <div class="text-center">
+            <div class="cd-digit" id="cd-days-d">--</div>
+            <div class="font-grotesk text-[9px] text-muted tracking-widest uppercase mt-1">Días</div>
+          </div>
+          <div class="cd-digit text-white/20 pt-0.5">:</div>
+          <div class="text-center">
+            <div class="cd-digit" id="cd-hours-d">--</div>
+            <div class="font-grotesk text-[9px] text-muted tracking-widest uppercase mt-1">Horas</div>
+          </div>
+          <div class="cd-digit text-white/20 pt-0.5">:</div>
+          <div class="text-center">
+            <div class="cd-digit" id="cd-mins-d">--</div>
+            <div class="font-grotesk text-[9px] text-muted tracking-widest uppercase mt-1">Min</div>
+          </div>
+          <div class="cd-digit text-white/20 pt-0.5">:</div>
+          <div class="text-center">
+            <div class="cd-digit" id="cd-secs-d">--</div>
+            <div class="font-grotesk text-[9px] text-muted tracking-widest uppercase mt-1">Seg</div>
+          </div>
+        </div>
+        <div class="font-grotesk text-[9px] text-cyan/50 tracking-[0.2em] uppercase mt-2">20 · 21 Mayo 2026</div>
+      </div>
+
+    </div><!-- end md:flex -->
+  </div><!-- end relative z-10 -->
 </section>
 
 <!-- ── DATA RIBBON ──────────────────────────────────────── -->
@@ -219,13 +260,13 @@
 </div>
 
 <!-- ── PONENTES ──────────────────────────────────────────── -->
-<section id="ponentes" class="py-16 px-5 bg-bg reveal">
+<section id="ponentes" class="py-16 px-5 md:px-10 lg:px-24 bg-bg reveal">
   <h2 class="font-display text-5xl mb-2 tracking-tight text-white uppercase border-l-4 border-cyan pl-4">PONENTES</h2>
-  <p class="font-grotesk text-[10px] text-muted tracking-[0.2em] uppercase mb-8 pl-5">Desliza para ver más →</p>
+  <p class="font-grotesk text-[10px] text-muted tracking-[0.2em] uppercase mb-8 pl-5 md:hidden">Desliza para ver más →</p>
 
-  <div class="flex overflow-x-auto gap-4 no-scrollbar snap-x snap-mandatory -mx-5 px-5">
+  <div class="flex overflow-x-auto gap-4 no-scrollbar snap-x snap-mandatory -mx-5 px-5 md:grid md:grid-cols-3 lg:grid-cols-6 md:overflow-visible md:snap-none md:mx-0 md:px-0">
 
-    <div class="speaker-card min-w-[75vw] max-w-[280px] snap-center bg-surface-hi flex-shrink-0">
+    <div class="speaker-card min-w-[75vw] md:min-w-0 max-w-[280px] md:max-w-none snap-center md:snap-align-none bg-surface-hi flex-shrink-0 md:flex-shrink">
       <div class="aspect-[3/4] overflow-hidden relative bg-surface-top">
         <img src="assets/speakers/brais-moure.jpg" alt="Brais Moure" class="w-full h-full object-cover object-top" loading="lazy"/>
         <div class="absolute inset-0 border border-cyan/10 pointer-events-none"></div>
@@ -238,7 +279,7 @@
       </div>
     </div>
 
-    <div class="speaker-card min-w-[75vw] max-w-[280px] snap-center bg-surface-hi flex-shrink-0">
+    <div class="speaker-card min-w-[75vw] md:min-w-0 max-w-[280px] md:max-w-none snap-center md:snap-align-none bg-surface-hi flex-shrink-0 md:flex-shrink">
       <div class="aspect-[3/4] overflow-hidden relative bg-surface-top">
         <img src="assets/speakers/alfonso-del-valle.jpg" alt="Alfonso Del Valle" class="w-full h-full object-cover object-top" loading="lazy"/>
         <div class="absolute inset-0 border border-cyan/10 pointer-events-none"></div>
@@ -251,7 +292,7 @@
       </div>
     </div>
 
-    <div class="speaker-card min-w-[75vw] max-w-[280px] snap-center bg-surface-hi flex-shrink-0">
+    <div class="speaker-card min-w-[75vw] md:min-w-0 max-w-[280px] md:max-w-none snap-center md:snap-align-none bg-surface-hi flex-shrink-0 md:flex-shrink">
       <div class="aspect-[3/4] overflow-hidden relative bg-surface-top">
         <img src="assets/speakers/roberto-arocha.jpg" alt="Roberto Arocha" class="w-full h-full object-cover object-top" loading="lazy"/>
         <div class="absolute inset-0 border border-cyan/10 pointer-events-none"></div>
@@ -264,7 +305,7 @@
       </div>
     </div>
 
-    <div class="speaker-card min-w-[75vw] max-w-[280px] snap-center bg-surface-hi flex-shrink-0">
+    <div class="speaker-card min-w-[75vw] md:min-w-0 max-w-[280px] md:max-w-none snap-center md:snap-align-none bg-surface-hi flex-shrink-0 md:flex-shrink">
       <div class="aspect-[3/4] overflow-hidden relative bg-surface-top">
         <img src="assets/speakers/miguel-jimenez.jpg" alt="Miguel F Jimenez Sola" class="w-full h-full object-cover object-top" loading="lazy"/>
         <div class="absolute inset-0 border border-cyan/10 pointer-events-none"></div>
@@ -277,7 +318,7 @@
       </div>
     </div>
 
-    <div class="speaker-card min-w-[75vw] max-w-[280px] snap-center bg-surface-hi flex-shrink-0">
+    <div class="speaker-card min-w-[75vw] md:min-w-0 max-w-[280px] md:max-w-none snap-center md:snap-align-none bg-surface-hi flex-shrink-0 md:flex-shrink">
       <div class="aspect-[3/4] overflow-hidden relative bg-surface-top">
         <img src="assets/speakers/nielo-munoz.jpg" alt="Nielo Muñoz" class="w-full h-full object-cover object-top" loading="lazy"/>
         <div class="absolute inset-0 border border-cyan/10 pointer-events-none"></div>
@@ -290,7 +331,7 @@
       </div>
     </div>
 
-    <div class="speaker-card min-w-[75vw] max-w-[280px] snap-center bg-surface-hi flex-shrink-0 opacity-40">
+    <div class="speaker-card min-w-[75vw] md:min-w-0 max-w-[280px] md:max-w-none snap-center md:snap-align-none bg-surface-hi flex-shrink-0 md:flex-shrink opacity-40">
       <div class="aspect-[3/4] relative flex items-center justify-center bg-surface-top border border-dashed border-white/10">
         <span class="font-display text-[6rem] text-white/10">?</span>
       </div>
@@ -305,14 +346,14 @@
 </section>
 
 <!-- ── EMPRESAS ───────────────────────────────────────────── -->
-<section class="py-16 px-5 bg-surface-hi reveal">
+<section class="py-16 px-5 md:px-10 lg:px-24 bg-surface-hi reveal">
   <h2 class="font-display text-5xl mb-2 tracking-tight text-white uppercase border-l-4 border-amber pl-4">EMPRESAS</h2>
-  <p class="font-grotesk text-[10px] text-muted tracking-[0.2em] uppercase mb-8 pl-5">Organizaciones participantes →</p>
+  <p class="font-grotesk text-[10px] text-muted tracking-[0.2em] uppercase mb-8 pl-5 md:hidden">Organizaciones participantes →</p>
 
-  <div class="flex overflow-x-auto gap-4 no-scrollbar snap-x snap-mandatory -mx-5 px-5">
+  <div class="flex overflow-x-auto gap-4 no-scrollbar snap-x snap-mandatory -mx-5 px-5 md:grid md:grid-cols-5 md:overflow-visible md:snap-none md:mx-0 md:px-0">
 
     <!-- Microsoft -->
-    <div class="speaker-card min-w-[60vw] max-w-[240px] snap-center bg-bg flex-shrink-0">
+    <div class="speaker-card min-w-[60vw] md:min-w-0 max-w-[240px] md:max-w-none snap-center md:snap-align-none bg-bg flex-shrink-0 md:flex-shrink">
       <div class="aspect-square overflow-hidden relative flex items-center justify-center bg-[#0a0f1e] px-8">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" class="w-16 h-16" aria-label="Microsoft">
           <rect x="0"  y="0"  width="47" height="47" fill="#f25022"/>
@@ -329,7 +370,7 @@
     </div>
 
     <!-- Eurecat -->
-    <div class="speaker-card min-w-[60vw] max-w-[240px] snap-center bg-bg flex-shrink-0">
+    <div class="speaker-card min-w-[60vw] md:min-w-0 max-w-[240px] md:max-w-none snap-center md:snap-align-none bg-bg flex-shrink-0 md:flex-shrink">
       <div class="aspect-square overflow-hidden relative flex items-center justify-center bg-[#ffffff] px-8">
         <img src="assets/logos/eurecat.png" alt="Eurecat" class="max-h-16 max-w-full object-contain">
         <div class="absolute inset-0 border border-amber/10 pointer-events-none"></div>
@@ -341,7 +382,7 @@
     </div>
 
     <!-- Gigas -->
-    <div class="speaker-card min-w-[60vw] max-w-[240px] snap-center bg-bg flex-shrink-0">
+    <div class="speaker-card min-w-[60vw] md:min-w-0 max-w-[240px] md:max-w-none snap-center md:snap-align-none bg-bg flex-shrink-0 md:flex-shrink">
       <div class="aspect-square overflow-hidden relative flex items-center justify-center bg-[#0a0f1e] px-8">
         <img src="assets/logos/gigas.svg" alt="Gigas" class="max-h-16 max-w-full object-contain">
         <div class="absolute inset-0 border border-amber/10 pointer-events-none"></div>
@@ -353,7 +394,7 @@
     </div>
 
     <!-- Freepik -->
-    <div class="speaker-card min-w-[60vw] max-w-[240px] snap-center bg-bg flex-shrink-0">
+    <div class="speaker-card min-w-[60vw] md:min-w-0 max-w-[240px] md:max-w-none snap-center md:snap-align-none bg-bg flex-shrink-0 md:flex-shrink">
       <div class="aspect-square overflow-hidden relative flex items-center justify-center bg-[#0a0f1e] px-8">
         <img src="assets/logos/freepik.svg" alt="Freepik" class="w-4/5 object-contain">
         <div class="absolute inset-0 border border-amber/10 pointer-events-none"></div>
@@ -365,7 +406,7 @@
     </div>
 
     <!-- Cluster Emprendimiento Melilla -->
-    <div class="speaker-card min-w-[60vw] max-w-[240px] snap-center bg-bg flex-shrink-0">
+    <div class="speaker-card min-w-[60vw] md:min-w-0 max-w-[240px] md:max-w-none snap-center md:snap-align-none bg-bg flex-shrink-0 md:flex-shrink">
       <div class="aspect-square overflow-hidden relative flex items-center justify-center bg-[#0a0f1e] px-8">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" class="w-20 h-20" aria-label="Cluster de Emprendimiento Melilla">
           <polygon points="50,8 92,32 92,68 50,92 8,68 8,32" fill="none" stroke="#00c87a" stroke-width="5"/>
@@ -383,8 +424,8 @@
 </section>
 
 <!-- ── SOBRE EL EVENTO ────────────────────────────────────── -->
-<section id="sobre" class="py-16 px-5 bg-surface clip-up clip-down reveal">
-  <div class="max-w-lg">
+<section id="sobre" class="py-16 px-5 md:px-10 lg:px-24 bg-surface clip-up clip-down reveal">
+  <div class="max-w-lg md:max-w-2xl">
     <p class="font-grotesk text-[10px] text-amber tracking-[0.3em] uppercase mb-4">El evento</p>
     <h2 class="font-display text-5xl leading-none mb-6 uppercase">IA DE VERDAD,<br/><span class="text-cyan">EN MELILLA.</span></h2>
     <p class="text-white/50 text-sm font-light leading-relaxed">
@@ -410,7 +451,7 @@
 </section>
 
 <!-- ── PARTNERS ───────────────────────────────────────────── -->
-<section class="py-14 px-5 bg-bg border-y border-border reveal">
+<section class="py-14 px-5 md:px-10 bg-bg border-y border-border reveal">
   <p class="font-grotesk text-[9px] text-muted tracking-[0.4em] uppercase mb-8 text-center">Organizan &amp; colaboran</p>
   <div class="flex flex-wrap justify-center gap-8 opacity-50">
     <span class="font-display text-2xl tracking-tight">MICROSOFT</span>
@@ -422,7 +463,7 @@
 </section>
 
 <!-- ── REGISTRO ───────────────────────────────────────────── -->
-<section id="registro" class="py-20 px-5 bg-surface relative overflow-hidden reveal">
+<section id="registro" class="py-20 px-5 md:px-10 bg-surface relative overflow-hidden reveal">
   <div class="absolute top-0 right-0 w-64 h-64 opacity-10 rounded-full" style="background:radial-gradient(circle,#00f2ff,transparent);filter:blur(80px)"></div>
   <div class="relative z-10 max-w-md mx-auto text-center">
     <p class="font-grotesk text-[10px] text-cyan tracking-[0.3em] uppercase mb-4">Waitlist</p>
@@ -458,7 +499,7 @@
 </section>
 
 <!-- ── FOOTER ─────────────────────────────────────────────── -->
-<footer class="py-12 px-5 bg-bg border-t border-border flex flex-col items-center gap-6 pb-24">
+<footer class="py-12 px-5 bg-bg border-t border-border flex flex-col items-center gap-6 pb-24 md:pb-12">
   <span class="font-display text-3xl text-cyan tracking-widest">AI MELILLA <span class="text-amber">2026</span></span>
   <div class="flex gap-8">
     <a href="#" class="font-grotesk text-[10px] text-white/30 hover:text-amber tracking-widest uppercase transition-colors">Privacidad</a>
@@ -469,7 +510,7 @@
 </footer>
 
 <!-- ── BOTTOM NAV ─────────────────────────────────────────── -->
-<nav class="fixed bottom-0 left-0 w-full h-16 z-50 flex items-stretch bg-bg border-t border-border shadow-[0_0_30px_rgba(0,242,255,0.12)]">
+<nav class="fixed bottom-0 left-0 w-full h-16 z-50 flex items-stretch bg-bg border-t border-border shadow-[0_0_30px_rgba(0,242,255,0.12)] md:hidden">
   <button data-scroll="ponentes" class="flex-1 flex flex-col items-center justify-center text-cyan gap-0.5 hover:bg-surface-hi transition-colors">
     <span class="material-symbols-outlined text-xl">record_voice_over</span>
     <span class="font-grotesk font-bold text-[9px] uppercase tracking-widest">Ponentes</span>
@@ -554,15 +595,23 @@
     var now  = new Date();
     var diff = target - now;
     if (diff <= 0) {
-      ['cd-days','cd-hours','cd-mins','cd-secs'].forEach(function(id) {
+      ['cd-days','cd-hours','cd-mins','cd-secs','cd-days-d','cd-hours-d','cd-mins-d','cd-secs-d'].forEach(function(id) {
         document.getElementById(id).textContent = '00';
       });
       return;
     }
-    document.getElementById('cd-days').textContent  = pad(Math.floor(diff / 86400000));
-    document.getElementById('cd-hours').textContent = pad(Math.floor((diff % 86400000) / 3600000));
-    document.getElementById('cd-mins').textContent  = pad(Math.floor((diff % 3600000) / 60000));
-    document.getElementById('cd-secs').textContent  = pad(Math.floor((diff % 60000) / 1000));
+    var days  = pad(Math.floor(diff / 86400000));
+    var hours = pad(Math.floor((diff % 86400000) / 3600000));
+    var mins  = pad(Math.floor((diff % 3600000) / 60000));
+    var secs  = pad(Math.floor((diff % 60000) / 1000));
+    document.getElementById('cd-days').textContent   = days;
+    document.getElementById('cd-hours').textContent  = hours;
+    document.getElementById('cd-mins').textContent   = mins;
+    document.getElementById('cd-secs').textContent   = secs;
+    document.getElementById('cd-days-d').textContent  = days;
+    document.getElementById('cd-hours-d').textContent = hours;
+    document.getElementById('cd-mins-d').textContent  = mins;
+    document.getElementById('cd-secs-d').textContent  = secs;
   }
   tick();
   setInterval(tick, 1000);
