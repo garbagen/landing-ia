@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Static single-file landing page for **AI Melilla 2025** — an AI conference event (May 20-22, 2025, Melilla, Spain). No build system, no dependencies, no framework. Open `index.html` directly in a browser.
+Static single-file landing page for **IA Melilla 2026** — an AI conference event (May 20-21, 2026, Melilla, Spain). Uses Tailwind CSS via CDN, no build system, no framework. Open `index.html` directly in a browser.
 
 ## Development
 
@@ -18,36 +18,42 @@ npx serve .
 
 ## Architecture
 
-Everything lives in `index.html` (≈1173 lines) in this order:
+Everything lives in `index.html` in this order:
 
-1. **`<head>`** — Google Fonts (Syne + Inter), inline `<style>` with the full CSS
+1. **`<head>`** — Google Fonts (Bebas Neue + Space Grotesk + Inter), Tailwind CDN with custom config, inline `<style>`, structured data (JSON-LD)
 2. **`<body>`** sections in DOM order:
-   - `#nav` — fixed navbar, hamburger menu, scroll-triggered background blur
-   - `#hero` — full-screen with animated gradient blobs, canvas particle system, countdown timer, and waitlist CTA
-   - `#about` — event details/stats with scroll-triggered fade-in via Intersection Observer
-   - `#speakers` — speaker card grid with fade-up animations
-   - `#waitlist` — email capture form with inline validation
-   - `footer` — logo, social links
-   - Mobile sticky pill — floating CTA that appears after 1.5s
-3. **Inline `<script>`** at end of body — all JS (particle system, countdown, form validation, Intersection Observer, mobile menu)
+   - `header` — fixed navbar with hamburger menu (mobile) and desktop nav
+   - Hero section — full-screen with gradient blobs, scanlines, countdown timer (mobile + desktop), and CTA
+   - Data ribbon — marquee with event keywords
+   - `#ponentes` — speaker card grid (horizontal scroll on mobile, grid on desktop)
+   - `#agenda` — two-day schedule with tab navigation and timeline layout
+   - `#empresas` — company/partner logos (horizontal scroll on mobile, logo wall on desktop)
+   - `#sobre` — event details and stats
+   - Partners ribbon — text-only partner names
+   - `#registro` — email waitlist form with Google Apps Script backend
+   - `footer` — logo, navigation links
+   - Bottom nav — fixed mobile navigation bar
+   - Drawer — slide-out mobile menu
+3. **Inline `<script>`** at end of body — all JS (agenda tabs, drawer, countdown, waitlist form, scroll reveal, smooth scroll)
 
-## Design System (CSS Variables)
+## Design System (Tailwind Config)
 
 | Token | Value | Use |
 |-------|-------|-----|
-| Backgrounds | `#0a0f1e`, `#0d1428`, `#111d3a` | Navy scale |
-| Primary accent | `#00f5ff` / `#00c8d4` | Cyan |
-| Highlight | `#ffb800` | Amber |
-| Text | `#e8f0fe` / `#5a6a8a` | Primary / muted |
-| Transition | `0.3s cubic-bezier(0.4,0,0.2,1)` | All interactive states |
-| Border radius | `12px` primary, `8px`/`6px` buttons | — |
+| `bg` | `#0b0c1f` | Main background |
+| `surface` / `surface-hi` / `surface-top` | `#111225` / `#1d1e32` / `#27283d` | Elevated surfaces |
+| `cyan` / `cyan-dim` | `#00f2ff` / `#00dbe7` | Primary accent |
+| `amber` | `#ffab00` | Secondary accent / highlight |
+| `muted` | `#5a6b7b` | Muted text |
+| `border` | `rgba(255,255,255,0.07)` | Borders |
 
-Gradient text uses `-webkit-background-clip: text` with the cyan palette. Glass-morphism cards use `backdrop-filter: blur()`.
+Fonts: `font-display` (Bebas Neue), `font-grotesk` (Space Grotesk), `font-body` (Inter). Border radius set to 0px (sharp edges design).
 
 ## Key Patterns
 
-- **Scroll animations**: `IntersectionObserver` adds `.animate` class to elements with `data-animate` attribute
-- **Particles**: Canvas-based; 80 particles on desktop, 40 on mobile (checked via `window.innerWidth`)
-- **Countdown**: `setInterval` targeting `May 20, 2025 09:00:00` — update this date for future events
-- **Form**: Email regex validation, inline success/error messages, no backend integration (currently client-side only)
-- **Responsive**: Media queries at 768px and 480px breakpoints; hamburger menu below 768px
+- **Scroll animations**: `IntersectionObserver` adds `.visible` class to elements with `.reveal` class
+- **Countdown**: `setInterval` targeting `2026-05-20T09:00:00` — update this date for future events
+- **Agenda**: Tab-based day switcher with staggered CSS animations on items
+- **Form**: Email regex validation, sends to Google Apps Script endpoint, inline success/error messages
+- **Responsive**: Tailwind `md:` breakpoint (768px); hamburger drawer menu + bottom nav on mobile
+- **Speaker cards**: Horizontal scroll with snap on mobile, CSS grid on desktop; grayscale-to-color hover effect
