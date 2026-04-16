@@ -253,6 +253,118 @@
   }
 
   body { min-height: 100dvh; }
+
+  /* ── Custom cursor glow ── */
+  @media (pointer: fine) {
+    #cursor-glow {
+      position: fixed;
+      width: 280px;
+      height: 280px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(0,242,255,0.07) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 9998;
+      transform: translate(-50%, -50%);
+      transition: opacity 0.3s ease;
+      opacity: 0;
+    }
+    #cursor-glow.active { opacity: 1; }
+  }
+
+  /* ── Glitch effect on hero ── */
+  .glitch {
+    position: relative;
+    display: inline-block;
+  }
+  .glitch::before,
+  .glitch::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    opacity: 0;
+  }
+  .glitch::before {
+    color: #00f2ff;
+    animation: glitch1 4s infinite linear;
+  }
+  .glitch::after {
+    color: #ffab00;
+    animation: glitch2 4s infinite linear;
+  }
+  @keyframes glitch1 {
+    0%, 90%, 100% { opacity: 0; transform: translate(0); clip-path: inset(0 0 100% 0); }
+    92% { opacity: 0.8; transform: translate(-3px, -1px); clip-path: inset(20% 0 40% 0); }
+    94% { opacity: 0; }
+    96% { opacity: 0.6; transform: translate(2px, 1px); clip-path: inset(60% 0 10% 0); }
+    98% { opacity: 0; }
+  }
+  @keyframes glitch2 {
+    0%, 91%, 100% { opacity: 0; transform: translate(0); clip-path: inset(0 0 100% 0); }
+    93% { opacity: 0.7; transform: translate(3px, 1px); clip-path: inset(40% 0 20% 0); }
+    95% { opacity: 0; }
+    97% { opacity: 0.5; transform: translate(-2px, -1px); clip-path: inset(10% 0 60% 0); }
+    99% { opacity: 0; }
+  }
+
+  /* ── Speaker card 3D tilt ── */
+  .speaker-card {
+    transform-style: preserve-3d;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .speaker-card:hover {
+    box-shadow: 0 8px 30px rgba(0,242,255,0.08);
+  }
+
+  /* ── Flip clock digits ── */
+  .flip-digit {
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+  }
+  .flip-digit .flip-current {
+    display: block;
+  }
+  .flip-digit.flipping .flip-current {
+    animation: flipOut 0.3s ease-in forwards;
+  }
+  .flip-digit.flipping .flip-next {
+    animation: flipIn 0.3s ease-out 0.3s forwards;
+  }
+  .flip-digit .flip-next {
+    position: absolute;
+    top: 0; left: 0;
+    opacity: 0;
+    transform: translateY(-40%);
+  }
+  @keyframes flipOut {
+    to { opacity: 0; transform: translateY(40%); }
+  }
+  @keyframes flipIn {
+    from { opacity: 0; transform: translateY(-40%); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── Marquee hover pause ── */
+  .marquee-wrapper:hover .animate-marquee {
+    animation-play-state: paused;
+  }
+  .marquee-wrapper span {
+    transition: color 0.2s ease, text-shadow 0.2s ease;
+  }
+  .marquee-wrapper span:hover {
+    color: #00f2ff !important;
+    text-shadow: 0 0 12px rgba(0,242,255,0.4);
+  }
+
+  /* ── Neural network canvas ── */
+  #neural-canvas {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    opacity: 0.25;
+  }
 </style>
 <!-- Structured Data -->
 <script type="application/ld+json">
@@ -286,6 +398,8 @@
 
 <body class="bg-bg text-white font-body overflow-x-hidden selection:bg-cyan selection:text-bg">
 
+<div id="cursor-glow"></div>
+
 <!-- ── HEADER ──────────────────────────────────────────── -->
 <header class="fixed top-0 left-0 w-full h-16 flex items-center justify-between px-5 md:px-10 z-50 bg-bg/70 backdrop-blur-xl border-b border-border">
   <div class="flex items-center gap-3">
@@ -313,6 +427,8 @@
     <div class="absolute w-[400px] h-[400px] bottom-0 right-0 rounded-full opacity-10" style="background:radial-gradient(circle,#ffab00 0%,transparent 70%);filter:blur(80px)"></div>
     <div class="absolute w-[500px] h-[500px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full opacity-10" style="background:radial-gradient(circle,#7c3aed 0%,transparent 70%);filter:blur(120px)"></div>
   </div>
+  <!-- Neural network canvas -->
+  <canvas id="neural-canvas"></canvas>
   <div class="scanlines"></div>
 
   <div class="relative z-10 w-full reveal px-5 md:px-16 lg:px-24 max-w-[1400px] mx-auto" style="transition-delay:0.1s">
@@ -330,7 +446,7 @@
         <!-- Title -->
         <h1 class="font-display leading-none tracking-tight" style="font-size:clamp(4.5rem,20vw,9rem);line-height:0.9">
           <span class="sr-only">IA Melilla 2026 — Evento de Inteligencia Artificial · Cluster de Emprendimiento de Melilla</span>
-          <span aria-hidden="true"><span class="text-white/40">MEL</span><span class="text-cyan" style="font-size:1.45em;line-height:0.85;display:inline-block">I</span><span class="text-white/40">LL</span><span class="text-cyan" style="font-size:1.45em;line-height:0.85;display:inline-block">A</span><br/>
+          <span aria-hidden="true"><span class="glitch" data-text="MEL"><span class="text-white/40">MEL</span></span><span class="text-cyan" style="font-size:1.45em;line-height:0.85;display:inline-block">I</span><span class="glitch" data-text="LL"><span class="text-white/40">LL</span></span><span class="text-cyan" style="font-size:1.45em;line-height:0.85;display:inline-block">A</span><br/>
           <span class="text-white/20 text-[0.42em] font-grotesk font-bold tracking-widest">20 &amp; 21 MAYO 2026</span></span>
         </h1>
 
@@ -412,7 +528,7 @@
 </section>
 
 <!-- ── DATA RIBBON ──────────────────────────────────────── -->
-<div class="w-full h-10 bg-surface-top flex items-center overflow-hidden border-y border-border">
+<div class="marquee-wrapper w-full h-10 bg-surface-top flex items-center overflow-hidden border-y border-border">
   <div class="flex animate-marquee gap-12 items-center whitespace-nowrap">
     <!-- duplicated for seamless loop -->
     <span class="font-grotesk text-[10px] text-cyan font-bold uppercase tracking-[0.2em] flex items-center gap-2">
@@ -863,7 +979,7 @@
         <div class="agenda-content">
           <span class="agenda-badge talk">Fail Fail Fail Studio · 20 min</span>
           <h3 class="agenda-title">Nielo Muñoz</h3>
-          <p class="agenda-meta">CEO</p>
+          <p class="agenda-meta">Director Creativo</p>
         </div>
       </div>
 
@@ -1453,7 +1569,7 @@
     document.getElementById('cd-secs-d').textContent  = secs;
   }
   tick();
-  setInterval(tick, 1000);
+  window._cdInterval = setInterval(tick, 1000);
 
   /* ── WAITLIST FORM ───────────────────────────────── */
   var APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz83__m0HIJ0ZW1hZY3o3zpKg_DAQ_7ABFidCzxEHPOCpjhlkXE1as069puDSe4-BzMmA/exec';
@@ -1542,6 +1658,152 @@
       if (target) target.scrollIntoView({ behavior: 'smooth' });
     });
   });
+
+  /* ── CURSOR GLOW ─────────────────────────────────── */
+  (function() {
+    var glow = document.getElementById('cursor-glow');
+    if (!glow || !matchMedia('(pointer: fine)').matches) return;
+    document.addEventListener('mousemove', function(e) {
+      glow.style.left = e.clientX + 'px';
+      glow.style.top = e.clientY + 'px';
+      if (!glow.classList.contains('active')) glow.classList.add('active');
+    });
+    document.addEventListener('mouseleave', function() {
+      glow.classList.remove('active');
+    });
+  })();
+
+  /* ── 3D TILT ON SPEAKER CARDS ────────────────────── */
+  (function() {
+    if (!matchMedia('(pointer: fine)').matches) return;
+    document.querySelectorAll('.speaker-card').forEach(function(card) {
+      card.addEventListener('mousemove', function(e) {
+        var rect = card.getBoundingClientRect();
+        var x = (e.clientX - rect.left) / rect.width;
+        var y = (e.clientY - rect.top) / rect.height;
+        var rotateY = (x - 0.5) * 12;
+        var rotateX = (0.5 - y) * 12;
+        card.style.transform = 'perspective(600px) rotateX(' + rotateX + 'deg) rotateY(' + rotateY + 'deg) scale(1.02)';
+      });
+      card.addEventListener('mouseleave', function() {
+        card.style.transform = '';
+      });
+    });
+  })();
+
+  /* ── NEURAL NETWORK CANVAS ──────────────────────── */
+  (function() {
+    var canvas = document.getElementById('neural-canvas');
+    if (!canvas) return;
+    var ctx = canvas.getContext('2d');
+    var hero = canvas.parentElement;
+    var points = [];
+    var numPoints = 60;
+    var maxDist = 140;
+    var animId;
+
+    function resize() {
+      canvas.width = hero.offsetWidth;
+      canvas.height = hero.offsetHeight;
+    }
+
+    function init() {
+      resize();
+      points = [];
+      for (var i = 0; i < numPoints; i++) {
+        points.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          vx: (Math.random() - 0.5) * 0.4,
+          vy: (Math.random() - 0.5) * 0.4,
+          r: Math.random() * 2 + 1
+        });
+      }
+    }
+
+    function draw() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      // Update positions
+      for (var i = 0; i < points.length; i++) {
+        var p = points[i];
+        p.x += p.vx;
+        p.y += p.vy;
+        if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+        if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+      }
+      // Draw connections
+      for (var i = 0; i < points.length; i++) {
+        for (var j = i + 1; j < points.length; j++) {
+          var dx = points[i].x - points[j].x;
+          var dy = points[i].y - points[j].y;
+          var dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < maxDist) {
+            var alpha = (1 - dist / maxDist) * 0.35;
+            ctx.beginPath();
+            ctx.strokeStyle = 'rgba(0,242,255,' + alpha + ')';
+            ctx.lineWidth = 0.5;
+            ctx.moveTo(points[i].x, points[i].y);
+            ctx.lineTo(points[j].x, points[j].y);
+            ctx.stroke();
+          }
+        }
+      }
+      // Draw dots
+      for (var i = 0; i < points.length; i++) {
+        ctx.beginPath();
+        ctx.arc(points[i].x, points[i].y, points[i].r, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(0,242,255,0.5)';
+        ctx.fill();
+      }
+      animId = requestAnimationFrame(draw);
+    }
+
+    init();
+    draw();
+    window.addEventListener('resize', function() {
+      resize();
+    });
+  })();
+
+  /* ── FLIP CLOCK COUNTDOWN ───────────────────────── */
+  (function() {
+    var ids = ['cd-days','cd-hours','cd-mins','cd-secs','cd-days-d','cd-hours-d','cd-mins-d','cd-secs-d'];
+    var prevValues = {};
+    ids.forEach(function(id) { prevValues[id] = ''; });
+
+    var origTick = tick; // reference existing tick
+
+    function flipTick() {
+      // Get values before update
+      var before = {};
+      ids.forEach(function(id) {
+        var el = document.getElementById(id);
+        before[id] = el ? el.textContent : '';
+      });
+
+      origTick();
+
+      // Check for changes and animate
+      ids.forEach(function(id) {
+        var el = document.getElementById(id);
+        if (!el) return;
+        var after = el.textContent;
+        if (before[id] !== after && before[id] !== '--') {
+          el.classList.add('flip-digit');
+          el.innerHTML = '<span class="flip-current">' + before[id] + '</span><span class="flip-next">' + after + '</span>';
+          el.classList.add('flipping');
+          setTimeout(function() {
+            el.classList.remove('flip-digit', 'flipping');
+            el.textContent = after;
+          }, 600);
+        }
+      });
+    }
+
+    // Replace the existing interval
+    clearInterval(window._cdInterval);
+    window._cdInterval = setInterval(flipTick, 1000);
+  })();
 
 })();
 </script>
