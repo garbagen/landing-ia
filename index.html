@@ -246,6 +246,11 @@
   #overlay { opacity: 0; pointer-events: none; transition: opacity 0.4s ease; }
   #overlay.open { opacity: 1; pointer-events: auto; }
 
+  /* Video modal */
+  #video-modal { opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
+  #video-modal.open { opacity: 1; pointer-events: auto; }
+  #teaser-btn .teaser-dot { animation: pulse2 1.6s ease-in-out infinite; }
+
   /* Scan line on hero */
   .scanlines {
     background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.03) 2px, rgba(0,0,0,0.03) 4px);
@@ -493,6 +498,15 @@
           APUNTARME
           <span class="material-symbols-outlined">arrow_downward</span>
         </a>
+
+        <!-- Teaser button -->
+        <button type="button" id="teaser-btn" class="group inline-flex items-center gap-2.5 -mt-1 text-white/55 hover:text-amber font-grotesk text-[11px] tracking-[0.25em] uppercase transition-colors">
+          <span class="relative flex items-center justify-center w-5 h-5 border border-amber/40 group-hover:border-amber bg-amber/10 group-hover:bg-amber/20 transition-colors">
+            <span class="material-symbols-outlined text-amber" style="font-size:14px">play_arrow</span>
+            <span class="teaser-dot absolute -top-1 -right-1 w-1.5 h-1.5 bg-amber"></span>
+          </span>
+          <span class="border-b border-dashed border-white/20 group-hover:border-amber pb-0.5">psst… mira el teaser</span>
+        </button>
 
       </div><!-- end LEFT COLUMN -->
 
@@ -1495,6 +1509,19 @@
 <!-- ── OVERLAY ────────────────────────────────────────────── -->
 <div id="overlay" class="fixed inset-0 bg-black/60 z-[55]"></div>
 
+<!-- ── VIDEO MODAL ──────────────────────────────────── -->
+<div id="video-modal" class="fixed inset-0 z-[70] flex items-center justify-center bg-black/90 backdrop-blur-sm p-5 md:p-10" role="dialog" aria-modal="true" aria-label="Teaser IA Melilla 2026">
+  <button id="video-close" type="button" aria-label="Cerrar video" class="absolute top-4 right-4 md:top-8 md:right-8 w-11 h-11 flex items-center justify-center bg-surface-hi border border-cyan/30 text-white hover:bg-cyan hover:text-bg transition-colors z-10">
+    <span class="material-symbols-outlined">close</span>
+  </button>
+  <div class="relative w-full max-w-5xl aspect-video border border-cyan/30 bg-black shadow-[0_0_60px_rgba(0,242,255,0.15)]">
+    <span class="absolute -top-7 left-0 font-grotesk text-[10px] text-cyan tracking-[0.3em] uppercase flex items-center gap-2">
+      <span class="w-1.5 h-1.5 bg-cyan animate-pulse2"></span> TEASER · IA MELILLA 2026
+    </span>
+    <iframe id="video-iframe" class="w-full h-full" src="" title="Teaser IA Melilla 2026" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+  </div>
+</div>
+
 <!-- ── DRAWER ─────────────────────────────────────────────── -->
 <aside id="drawer" class="fixed inset-y-0 left-0 z-[60] flex flex-col w-80 bg-bg border-r border-border p-8">
   <div class="flex items-center justify-between mb-12">
@@ -1579,6 +1606,32 @@
   overlay.addEventListener('click', closeDrawer);
   drawer.querySelectorAll('a[href^="#"]').forEach(function(link) {
     link.addEventListener('click', closeDrawer);
+  });
+
+  /* ── VIDEO MODAL ─────────────────────────────────── */
+  const teaserBtn   = document.getElementById('teaser-btn');
+  const videoModal  = document.getElementById('video-modal');
+  const videoClose  = document.getElementById('video-close');
+  const videoIframe = document.getElementById('video-iframe');
+  const VIDEO_SRC   = 'https://www.youtube.com/embed/tlmBV2bbyu8?autoplay=1&rel=0&modestbranding=1';
+
+  function openVideo() {
+    videoIframe.src = VIDEO_SRC;
+    videoModal.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeVideo() {
+    videoIframe.src = '';
+    videoModal.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  teaserBtn.addEventListener('click', openVideo);
+  videoClose.addEventListener('click', closeVideo);
+  videoModal.addEventListener('click', function(e) {
+    if (e.target === videoModal) closeVideo();
+  });
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && videoModal.classList.contains('open')) closeVideo();
   });
 
   /* ── COUNTDOWN ───────────────────────────────────── */
