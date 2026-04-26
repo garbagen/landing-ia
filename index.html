@@ -631,46 +631,23 @@
   </div>
 </div>
 
-<!-- ── TEASER (scroll-triggered glitch) ────────────────── -->
-<section id="teaser" class="relative bg-bg overflow-hidden py-20 md:py-28 px-5 md:px-10 lg:px-24">
-  <!-- Background mesh accent -->
-  <div class="absolute inset-0 z-0 pointer-events-none">
-    <div class="absolute w-[500px] h-[500px] top-0 -right-32 rounded-full opacity-10" style="background:radial-gradient(circle,#ffab00 0%,transparent 70%);filter:blur(100px)"></div>
-    <div class="absolute w-[400px] h-[400px] bottom-0 -left-20 rounded-full opacity-10" style="background:radial-gradient(circle,#00f2ff 0%,transparent 70%);filter:blur(80px)"></div>
+<!-- ── TEASER GLITCH (overlay tied to scroll position) ── -->
+<!-- Invisible sentinel: defines the scroll position where the glitch fires -->
+<section id="teaser-trigger" class="relative bg-bg" style="height:55vh" aria-hidden="true"></section>
+
+<!-- Fixed overlay: invades the viewport when sentinel is centered -->
+<div id="teaser-overlay" class="fixed inset-0 z-[45] flex items-center justify-center p-5 md:p-10 pointer-events-none" aria-hidden="true">
+  <div id="teaser-frame" class="teaser-frame relative w-full max-w-5xl aspect-video border border-cyan/30 bg-black shadow-[0_0_80px_rgba(0,242,255,0.18)]">
+    <iframe id="teaser-autoplay"
+            src=""
+            class="w-full h-full block relative z-[1] pointer-events-none"
+            title="Teaser IA Melilla 2026"
+            frameborder="0"
+            allow="autoplay; encrypted-media; picture-in-picture"
+            allowfullscreen></iframe>
+    <div class="teaser-scan"></div>
   </div>
-
-  <div class="relative z-10 max-w-5xl mx-auto">
-    <!-- Header label -->
-    <div class="flex items-center justify-between mb-5 md:mb-7">
-      <div class="flex items-center gap-3">
-        <span class="w-1.5 h-1.5 bg-amber animate-pulse2"></span>
-        <span class="font-grotesk text-[10px] text-amber tracking-[0.3em] uppercase font-bold">// SEÑAL DETECTADA · TEASER</span>
-      </div>
-      <span class="hidden md:inline-block font-grotesk text-[10px] text-white/30 tracking-[0.3em] uppercase">REC ● 2026</span>
-    </div>
-
-    <!-- Glitch frame -->
-    <div id="teaser-frame" class="teaser-frame relative aspect-video border border-cyan/30 bg-black shadow-[0_0_60px_rgba(0,242,255,0.12)]">
-      <iframe id="teaser-autoplay"
-              src=""
-              class="w-full h-full block relative z-[1]"
-              title="Teaser IA Melilla 2026"
-              frameborder="0"
-              allow="autoplay; encrypted-media; picture-in-picture"
-              allowfullscreen></iframe>
-      <div class="teaser-scan"></div>
-    </div>
-
-    <!-- Footer caption -->
-    <div class="mt-4 flex items-center justify-between gap-4 flex-wrap">
-      <p class="font-grotesk text-[10px] md:text-xs text-white/40 tracking-[0.25em] uppercase">// transmisión interceptada · sin filtros</p>
-      <button id="teaser-fullscreen" type="button" class="font-grotesk text-[10px] md:text-xs text-cyan hover:text-amber tracking-[0.25em] uppercase border-b border-dashed border-cyan/40 hover:border-amber transition-colors pb-0.5 inline-flex items-center gap-2">
-        <span class="material-symbols-outlined" style="font-size:14px">volume_up</span>
-        VER CON SONIDO
-      </button>
-    </div>
-  </div>
-</section>
+</div>
 
 <!-- ── PONENTES ──────────────────────────────────────────── -->
 <section id="ponentes" class="py-16 px-5 md:px-10 lg:px-24 bg-bg reveal">
@@ -1742,32 +1719,86 @@
     if (e.key === 'Escape' && videoModal.classList.contains('open')) closeVideo();
   });
 
-  /* ── TEASER SCROLL-TRIGGERED ─────────────────────── */
-  const teaserSection   = document.getElementById('teaser');
+  /* ── TEASER SCROLL-TRIGGERED (overlay + audio) ─────── */
+  const teaserTrigger   = document.getElementById('teaser-trigger');
   const teaserFrame     = document.getElementById('teaser-frame');
   const teaserIframe    = document.getElementById('teaser-autoplay');
-  const teaserFullBtn   = document.getElementById('teaser-fullscreen');
   const TEASER_AUTOPLAY = 'https://www.youtube.com/embed/tlmBV2bbyu8?autoplay=1&mute=1&loop=1&playlist=tlmBV2bbyu8&controls=0&modestbranding=1&playsinline=1&rel=0&enablejsapi=1';
 
-  let teaserLoaded   = false;
-  let teaserVisible  = false;
+  let teaserPlayer      = null;
+  let teaserPlayerReady = false;
+  let teaserVisible     = false;
+  let teaserSrcSet      = false;
+  let audioUnlocked     = false;
+  let ytApiReady        = false;
 
-  function ytPost(cmd) {
-    if (!teaserLoaded || !teaserIframe.contentWindow) return;
-    teaserIframe.contentWindow.postMessage('{"event":"command","func":"' + cmd + '","args":""}', '*');
+  // Inject YouTube IFrame API (for unmute + setVolume)
+  (function loadYTApi() {
+    if (window.YT && window.YT.Player) { ytApiReady = true; return; }
+    if (document.getElementById('yt-iframe-api')) return;
+    const s = document.createElement('script');
+    s.id = 'yt-iframe-api';
+    s.src = 'https://www.youtube.com/iframe_api';
+    document.head.appendChild(s);
+  })();
+
+  window.onYouTubeIframeAPIReady = function() {
+    ytApiReady = true;
+    if (teaserSrcSet && !teaserPlayer) initTeaserPlayer();
+  };
+
+  function initTeaserPlayer() {
+    if (teaserPlayer || !ytApiReady) return;
+    teaserPlayer = new YT.Player('teaser-autoplay', {
+      events: {
+        onReady: function() {
+          teaserPlayerReady = true;
+          applyTeaserState();
+        }
+      }
+    });
   }
+
+  function applyTeaserState() {
+    if (!teaserPlayerReady || !teaserPlayer) return;
+    try {
+      if (teaserVisible) {
+        if (audioUnlocked) {
+          teaserPlayer.unMute();
+          teaserPlayer.setVolume(100);
+        } else {
+          teaserPlayer.mute();
+        }
+        teaserPlayer.playVideo();
+      } else {
+        teaserPlayer.pauseVideo();
+      }
+    } catch (e) {}
+  }
+
+  // Browser autoplay policy: sound only after user gesture.
+  // First click/tap/key anywhere on the page unlocks audio for all subsequent appearances.
+  function unlockAudio() {
+    if (audioUnlocked) return;
+    audioUnlocked = true;
+    applyTeaserState();
+  }
+  ['click', 'keydown', 'touchstart'].forEach(function(evt) {
+    document.addEventListener(evt, unlockAudio, { passive: true });
+  });
 
   function teaserShow() {
     if (teaserVisible) return;
     teaserVisible = true;
     teaserFrame.classList.remove('out');
-    void teaserFrame.offsetWidth; // force reflow to restart animation
+    void teaserFrame.offsetWidth; // restart animation
     teaserFrame.classList.add('in');
-    if (!teaserLoaded) {
+    if (!teaserSrcSet) {
       teaserIframe.src = TEASER_AUTOPLAY;
-      teaserLoaded = true;
+      teaserSrcSet = true;
+      if (ytApiReady) setTimeout(initTeaserPlayer, 50);
     } else {
-      ytPost('playVideo');
+      applyTeaserState();
     }
   }
   function teaserHide() {
@@ -1776,27 +1807,20 @@
     teaserFrame.classList.remove('in');
     void teaserFrame.offsetWidth;
     teaserFrame.classList.add('out');
-    ytPost('pauseVideo');
+    applyTeaserState();
   }
 
   if ('IntersectionObserver' in window) {
     const teaserObserver = new IntersectionObserver(function(entries) {
       entries.forEach(function(entry) {
-        if (entry.isIntersecting && entry.intersectionRatio >= 0.3) {
-          teaserShow();
-        } else if (entry.intersectionRatio < 0.1) {
-          teaserHide();
-        }
+        if (entry.isIntersecting) teaserShow();
+        else teaserHide();
       });
-    }, { threshold: [0, 0.1, 0.3, 0.6] });
-    teaserObserver.observe(teaserSection);
+    }, { rootMargin: '-35% 0px -35% 0px', threshold: 0 });
+    teaserObserver.observe(teaserTrigger);
   } else {
-    // Fallback: just show
     teaserShow();
   }
-
-  // "Ver con sonido" → reuse the modal player
-  teaserFullBtn.addEventListener('click', openVideo);
 
   /* ── COUNTDOWN ───────────────────────────────────── */
   var target = new Date('2026-05-20T09:00:00');
