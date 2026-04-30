@@ -1060,13 +1060,27 @@
         </div>
         <h3 class="font-display text-2xl md:text-3xl text-white tracking-tight uppercase leading-none mb-3">Agenda en <span class="text-amber">retoque</span></h3>
         <p class="font-grotesk text-sm text-white/60 leading-relaxed mb-4">
-          Estamos cerrando el cartel definitivo. Estos son los <span class="text-green-400 font-semibold">confirmados</span> para el <span class="text-white font-semibold">día 20</span>:
+          Estamos cerrando el cartel definitivo. Estos son los <span class="text-green-400 font-semibold">confirmados</span>:
         </p>
-        <div class="flex flex-wrap gap-2 mb-4">
-          <span class="agenda-chip confirmed">● Microsoft</span>
-          <span class="agenda-chip confirmed">● Alejavi Rivera</span>
-          <span class="agenda-chip confirmed">● Eurecat</span>
+
+        <div class="grid sm:grid-cols-2 gap-x-8 gap-y-4 mb-5">
+          <div>
+            <p class="font-grotesk text-[10px] text-amber tracking-[0.3em] uppercase mb-2">// Día 20 · Mar</p>
+            <div class="flex flex-wrap gap-2">
+              <span class="agenda-chip confirmed">● Microsoft</span>
+              <span class="agenda-chip confirmed">● Alejavi Rivera</span>
+              <span class="agenda-chip confirmed">● Eurecat</span>
+            </div>
+          </div>
+          <div>
+            <p class="font-grotesk text-[10px] text-amber tracking-[0.3em] uppercase mb-2">// Día 21 · Mié</p>
+            <div class="flex flex-wrap gap-2">
+              <span class="agenda-chip confirmed">● UGR</span>
+              <span class="agenda-chip confirmed">● UNED</span>
+            </div>
+          </div>
         </div>
+
         <p class="font-grotesk text-xs text-white/40 tracking-wider uppercase">
           El resto del lineup se publicará en los próximos días — vuelve pronto.
         </p>
@@ -1227,6 +1241,20 @@
       </div>
     </div>
 
+    <!-- UNED -->
+    <div class="speaker-card min-w-[60vw] md:min-w-0 max-w-[240px] md:max-w-none snap-center md:snap-align-none bg-bg flex-shrink-0 md:flex-shrink">
+      <div class="aspect-square overflow-hidden relative flex items-center justify-center bg-[#871414] px-8">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 60" class="w-36" aria-label="Universidad Nacional de Educación a Distancia">
+          <text x="80" y="40" font-family="Georgia, serif" font-size="34" font-weight="bold" letter-spacing="2" fill="#ffffff" text-anchor="middle">UNED</text>
+        </svg>
+        <div class="absolute inset-0 border border-amber/10 pointer-events-none"></div>
+      </div>
+      <div class="p-4">
+        <h3 class="font-display text-lg text-white mb-1 leading-tight">UNED</h3>
+        <p class="text-white/40 text-xs font-light">Educación a Distancia</p>
+      </div>
+    </div>
+
   </div>
 
     <!-- Desktop logo wall -->
@@ -1340,6 +1368,17 @@
         </div>
         <span class="font-display text-lg text-white tracking-wide">UGR</span>
         <span class="font-grotesk text-[9px] text-white/30 tracking-widest uppercase -mt-3">Universidad de Granada</span>
+      </div>
+
+      <!-- UNED -->
+      <div class="flex flex-col items-center gap-4 group">
+        <div class="w-24 h-24 flex items-center justify-center bg-[#871414] border border-border group-hover:border-amber/40 transition-colors p-4">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 60" class="w-16" aria-label="Universidad Nacional de Educación a Distancia">
+            <text x="80" y="40" font-family="Georgia, serif" font-size="34" font-weight="bold" letter-spacing="2" fill="#ffffff" text-anchor="middle">UNED</text>
+          </svg>
+        </div>
+        <span class="font-display text-lg text-white tracking-wide">UNED</span>
+        <span class="font-grotesk text-[9px] text-white/30 tracking-widest uppercase -mt-3">Educación a Distancia</span>
       </div>
 
     </div><!-- end desktop logo wall -->
