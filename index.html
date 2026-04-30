@@ -226,6 +226,133 @@
   .agenda-item:hover .agenda-title { color: #00f5ff; }
   .agenda-item[data-type="panel"]:hover .agenda-title { color: #ffb800; }
 
+  /* Status pill — confirmed / tentative */
+  .agenda-status {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 3px 7px;
+    margin-left: 6px;
+    vertical-align: middle;
+    white-space: nowrap;
+  }
+  .agenda-status::before {
+    content: '';
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .agenda-status.confirmed {
+    color: #4ade80;
+    background: rgba(74,222,128,0.08);
+    border: 1px solid rgba(74,222,128,0.3);
+  }
+  .agenda-status.confirmed::before {
+    background: #4ade80;
+    box-shadow: 0 0 6px #4ade80;
+  }
+  .agenda-status.tentative {
+    color: rgba(255,171,0,0.9);
+    background: rgba(255,171,0,0.04);
+    border: 1px dashed rgba(255,171,0,0.35);
+  }
+  .agenda-status.tentative::before {
+    background: #ffab00;
+    animation: pulseStatus 1.6s ease-in-out infinite;
+  }
+  @keyframes pulseStatus {
+    0%,100% { opacity: 0.35; transform: scale(0.85); }
+    50%     { opacity: 1;    transform: scale(1.1); }
+  }
+  .agenda-item.tentative .agenda-title { color: rgba(255,255,255,0.78); }
+  .agenda-item.tentative .agenda-dot   { border-style: dashed; }
+  .agenda-item.tentative:hover .agenda-title { color: #ffd066; }
+  .agenda-item.tentative .agenda-time {
+    color: rgba(255,255,255,0.4);
+  }
+  .agenda-item.tentative .agenda-time::after {
+    content: '?';
+    color: rgba(255,171,0,0.55);
+    font-weight: 300;
+    margin-left: 3px;
+  }
+  .agenda-item.tentative .agenda-title {
+    position: relative;
+    text-shadow: 1px 0 0 rgba(255,171,0,0.18), -1px 0 0 rgba(0,242,255,0.12);
+  }
+  .agenda-item.tentative .agenda-meta {
+    color: rgba(255,255,255,0.32);
+    font-style: italic;
+  }
+
+  /* Agenda notice banner */
+  .agenda-notice {
+    position: relative;
+    background: linear-gradient(135deg, rgba(255,171,0,0.05) 0%, rgba(0,242,255,0.04) 100%);
+    border: 1px solid rgba(255,171,0,0.25);
+    padding: 28px 28px 26px 36px;
+    margin-bottom: 28px;
+    overflow: hidden;
+  }
+  .agenda-notice::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: repeating-linear-gradient(0deg, rgba(255,255,255,0.018) 0px, rgba(255,255,255,0.018) 1px, transparent 1px, transparent 3px);
+    pointer-events: none;
+  }
+  .agenda-notice-bar {
+    position: absolute;
+    top: 0; left: 0; bottom: 0;
+    width: 4px;
+    background: linear-gradient(180deg, #ffab00 0%, #ffab00 50%, #00f2ff 100%);
+    box-shadow: 0 0 12px rgba(255,171,0,0.4);
+  }
+  .agenda-notice-content {
+    position: relative;
+  }
+  .agenda-notice-tag {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: #00f2ff;
+  }
+  .agenda-notice-blink {
+    width: 8px; height: 8px;
+    background: #ffab00;
+    border-radius: 50%;
+    box-shadow: 0 0 10px #ffab00;
+    animation: noticeBlink 1.2s ease-in-out infinite;
+  }
+  @keyframes noticeBlink {
+    0%,100% { opacity: 0.3; transform: scale(0.8); }
+    50%     { opacity: 1;   transform: scale(1.1); }
+  }
+  .agenda-chip {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 6px 12px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .agenda-chip.confirmed {
+    color: #4ade80;
+    background: rgba(74,222,128,0.08);
+    border: 1px solid rgba(74,222,128,0.35);
+    box-shadow: inset 0 0 12px rgba(74,222,128,0.06), 0 0 8px rgba(74,222,128,0.1);
+  }
+
   /* CTA active */
   .cta-btn:active { transform: scale(0.97); }
 
@@ -920,274 +1047,32 @@
 
     <p class="font-grotesk text-[10px] text-amber tracking-[0.3em] uppercase mb-4">Programa</p>
     <h2 class="font-display text-5xl mb-2 tracking-tight text-white uppercase border-l-4 border-cyan pl-4">AGENDA <span class="sr-only">del evento IA Melilla 2026</span></h2>
-    <p class="text-white/40 text-sm font-light mb-10">20 — 21 de mayo · 16:00 a 21:00</p>
+    <p class="text-white/40 text-sm font-light mb-6">20 — 21 de mayo · 16:00 a 21:00</p>
 
-    <!-- Day tabs -->
-    <div class="flex gap-2 mb-8" role="tablist">
-      <button role="tab" aria-selected="true"  data-day="1" class="agenda-tab active font-display text-sm md:text-base uppercase tracking-wider px-5 py-2.5 border transition-all duration-300 cursor-pointer">Día 1 — Mar 20</button>
-      <button role="tab" aria-selected="false" data-day="2" class="agenda-tab font-display text-sm md:text-base uppercase tracking-wider px-5 py-2.5 border transition-all duration-300 cursor-pointer">Día 2 — Mié 21</button>
+    <!-- Notice banner -->
+    <div class="agenda-notice">
+      <div class="agenda-notice-bar"></div>
+      <div class="agenda-notice-content">
+        <div class="flex items-center gap-3 mb-3">
+          <span class="agenda-notice-tag">// SYS_STATUS</span>
+          <span class="agenda-notice-blink"></span>
+          <span class="font-grotesk text-[10px] text-amber/80 tracking-[0.3em] uppercase">compilando lineup</span>
+        </div>
+        <h3 class="font-display text-2xl md:text-3xl text-white tracking-tight uppercase leading-none mb-3">Agenda en <span class="text-amber">retoque</span></h3>
+        <p class="font-grotesk text-sm text-white/60 leading-relaxed mb-4">
+          Estamos cerrando el cartel definitivo. Estos son los <span class="text-green-400 font-semibold">confirmados</span> para el <span class="text-white font-semibold">día 20</span>:
+        </p>
+        <div class="flex flex-wrap gap-2 mb-4">
+          <span class="agenda-chip confirmed">● Microsoft</span>
+          <span class="agenda-chip confirmed">● Alejavi Rivera</span>
+          <span class="agenda-chip confirmed">● Eurecat</span>
+        </div>
+        <p class="font-grotesk text-xs text-white/40 tracking-wider uppercase">
+          El resto del lineup se publicará en los próximos días — vuelve pronto.
+        </p>
+      </div>
     </div>
 
-    <!-- ── DÍA 1 ── -->
-    <div class="agenda-day" data-day="1">
-
-      <!-- Inauguración -->
-      <div class="agenda-item" data-type="special">
-        <div class="agenda-time">16:00</div>
-        <div class="agenda-line"><span class="agenda-dot"></span></div>
-        <div class="agenda-content">
-          <span class="agenda-badge special">Apertura</span>
-          <h3 class="agenda-title">Inauguración y bienvenida</h3>
-          <p class="agenda-meta">15 min</p>
-        </div>
-      </div>
-
-      <!-- Alfonso del Valle -->
-      <div class="agenda-item" data-type="microsoft">
-        <div class="agenda-time">16:15</div>
-        <div class="agenda-line"><span class="agenda-dot"></span></div>
-        <div class="agenda-content">
-          <span class="agenda-badge microsoft">Microsoft · 30 min</span>
-          <h3 class="agenda-title">Alfonso del Valle</h3>
-          <p class="agenda-meta">Cloud Solution Architect — Data & AI</p>
-        </div>
-      </div>
-
-      <!-- Roberto Arocha -->
-      <div class="agenda-item" data-type="microsoft">
-        <div class="agenda-time">16:45</div>
-        <div class="agenda-line"><span class="agenda-dot"></span></div>
-        <div class="agenda-content">
-          <span class="agenda-badge microsoft">Microsoft · 30 min</span>
-          <h3 class="agenda-title">Roberto Arocha</h3>
-          <p class="agenda-meta">Sr Cloud Solution Architect</p>
-        </div>
-      </div>
-
-      <!-- Francisco Herrera -->
-      <div class="agenda-item" data-type="talk">
-        <div class="agenda-time">17:15</div>
-        <div class="agenda-line"><span class="agenda-dot"></span></div>
-        <div class="agenda-content">
-          <span class="agenda-badge talk">UGR · 20 min</span>
-          <h3 class="agenda-title">Francisco Herrera</h3>
-          <p class="agenda-meta">Catedrático de CC e Inteligencia Artificial</p>
-        </div>
-      </div>
-
-      <!-- Brais Moure -->
-      <div class="agenda-item" data-type="talk">
-        <div class="agenda-time">17:35</div>
-        <div class="agenda-line"><span class="agenda-dot"></span></div>
-        <div class="agenda-content">
-          <span class="agenda-badge talk">MoureDev · 20 min</span>
-          <h3 class="agenda-title">Brais Moure</h3>
-          <p class="agenda-meta">Developer & Divulgador Tecnológico</p>
-        </div>
-      </div>
-
-      <!-- Pausa café -->
-      <div class="agenda-item" data-type="break">
-        <div class="agenda-time">17:55</div>
-        <div class="agenda-line"><span class="agenda-dot"></span></div>
-        <div class="agenda-content">
-          <span class="agenda-badge break">Pausa · 20 min</span>
-          <h3 class="agenda-title">☕ Café y networking</h3>
-        </div>
-      </div>
-
-      <!-- Martí -->
-      <div class="agenda-item" data-type="talk">
-        <div class="agenda-time">18:15</div>
-        <div class="agenda-line"><span class="agenda-dot"></span></div>
-        <div class="agenda-content">
-          <span class="agenda-badge talk">BettaTech · 20 min</span>
-          <h3 class="agenda-title">Martí</h3>
-          <p class="agenda-meta">Developer & Divulgador Tecnológico</p>
-        </div>
-      </div>
-
-      <!-- Alejavi Rivera -->
-      <div class="agenda-item" data-type="talk">
-        <div class="agenda-time">18:35</div>
-        <div class="agenda-line"><span class="agenda-dot"></span></div>
-        <div class="agenda-content">
-          <span class="agenda-badge talk">Alejavi Rivera · 20 min</span>
-          <h3 class="agenda-title">Alejavi Rivera</h3>
-          <p class="agenda-meta">Divulgador Tecnológico</p>
-        </div>
-      </div>
-
-      <!-- Nacho García Egea -->
-      <div class="agenda-item" data-type="talk">
-        <div class="agenda-time">18:55</div>
-        <div class="agenda-line"><span class="agenda-dot"></span></div>
-        <div class="agenda-content">
-          <span class="agenda-badge talk">Gigas · 20 min</span>
-          <h3 class="agenda-title">Nacho García Egea</h3>
-          <p class="agenda-meta">CISO & Divulgador Ciberseguridad</p>
-        </div>
-      </div>
-
-      <!-- Mesa redonda 1 -->
-      <div class="agenda-item" data-type="panel">
-        <div class="agenda-time">19:15</div>
-        <div class="agenda-line"><span class="agenda-dot"></span></div>
-        <div class="agenda-content">
-          <span class="agenda-badge panel">Mesa redonda · 40 min</span>
-          <h3 class="agenda-title">IA y Empresa: Casos Reales</h3>
-          <p class="agenda-meta">Alfonso del Valle · Roberto Arocha · Nacho García Egea · Miguel F Jiménez</p>
-        </div>
-      </div>
-
-      <!-- Networking -->
-      <div class="agenda-item" data-type="special">
-        <div class="agenda-time">19:55</div>
-        <div class="agenda-line"><span class="agenda-dot"></span></div>
-        <div class="agenda-content">
-          <span class="agenda-badge special">Networking</span>
-          <h3 class="agenda-title">Networking y cierre del día</h3>
-          <p class="agenda-meta">Hasta las 21:00</p>
-        </div>
-      </div>
-
-    </div><!-- end day 1 -->
-
-    <!-- ── DÍA 2 ── -->
-    <div class="agenda-day hidden" data-day="2">
-
-      <!-- Héctor Blasco -->
-      <div class="agenda-item" data-type="microsoft">
-        <div class="agenda-time">16:00</div>
-        <div class="agenda-line"><span class="agenda-dot"></span></div>
-        <div class="agenda-content">
-          <span class="agenda-badge microsoft">Microsoft · 30 min</span>
-          <h3 class="agenda-title">Héctor Blasco</h3>
-          <p class="agenda-meta">Cloud Solution Architect</p>
-        </div>
-      </div>
-
-      <!-- Miguel F Jiménez -->
-      <div class="agenda-item" data-type="talk">
-        <div class="agenda-time">16:30</div>
-        <div class="agenda-line"><span class="agenda-dot"></span></div>
-        <div class="agenda-content">
-          <span class="agenda-badge talk">Yoti · 20 min</span>
-          <h3 class="agenda-title">Miguel F Jiménez</h3>
-          <p class="agenda-meta">Head of AI Services</p>
-        </div>
-      </div>
-
-      <!-- Jamal Toutouh -->
-      <div class="agenda-item" data-type="talk">
-        <div class="agenda-time">16:50</div>
-        <div class="agenda-line"><span class="agenda-dot"></span></div>
-        <div class="agenda-content">
-          <span class="agenda-badge talk">UMA · 20 min</span>
-          <h3 class="agenda-title">Jamal Toutouh</h3>
-          <p class="agenda-meta">Profesor Universitario · Especialista en IA</p>
-        </div>
-      </div>
-
-      <!-- Miguel Rodríguez -->
-      <div class="agenda-item" data-type="talk">
-        <div class="agenda-time">17:10</div>
-        <div class="agenda-line"><span class="agenda-dot"></span></div>
-        <div class="agenda-content">
-          <span class="agenda-badge talk">Freepik · 20 min</span>
-          <h3 class="agenda-title">Miguel Rodríguez</h3>
-          <p class="agenda-meta">AI Creative Associate</p>
-        </div>
-      </div>
-
-      <!-- Pausa café -->
-      <div class="agenda-item" data-type="break">
-        <div class="agenda-time">17:30</div>
-        <div class="agenda-line"><span class="agenda-dot"></span></div>
-        <div class="agenda-content">
-          <span class="agenda-badge break">Pausa · 20 min</span>
-          <h3 class="agenda-title">☕ Café y networking</h3>
-        </div>
-      </div>
-
-      <!-- Nielo Muñoz -->
-      <div class="agenda-item" data-type="talk">
-        <div class="agenda-time">17:50</div>
-        <div class="agenda-line"><span class="agenda-dot"></span></div>
-        <div class="agenda-content">
-          <span class="agenda-badge talk">Fail Fail Fail Studio · 20 min</span>
-          <h3 class="agenda-title">Nielo Muñoz</h3>
-          <p class="agenda-meta">Director Creativo</p>
-        </div>
-      </div>
-
-      <!-- Andrés D. Naranjo -->
-      <div class="agenda-item" data-type="talk">
-        <div class="agenda-time">18:10</div>
-        <div class="agenda-line"><span class="agenda-dot"></span></div>
-        <div class="agenda-content">
-          <span class="agenda-badge talk">Minery Report · 20 min</span>
-          <h3 class="agenda-title">Andrés D. Naranjo</h3>
-          <p class="agenda-meta">Head of CyberSecurity B2B</p>
-        </div>
-      </div>
-
-      <!-- José Aserraf -->
-      <div class="agenda-item" data-type="talk">
-        <div class="agenda-time">18:30</div>
-        <div class="agenda-line"><span class="agenda-dot"></span></div>
-        <div class="agenda-content">
-          <span class="agenda-badge talk">Gabinete Fonia · 20 min</span>
-          <h3 class="agenda-title">José Aserraf</h3>
-          <p class="agenda-meta">CEO</p>
-        </div>
-      </div>
-
-      <!-- Cristóbal Gásquez -->
-      <div class="agenda-item" data-type="talk">
-        <div class="agenda-time">18:50</div>
-        <div class="agenda-line"><span class="agenda-dot"></span></div>
-        <div class="agenda-content">
-          <span class="agenda-badge talk">UEC · 20 min</span>
-          <h3 class="agenda-title">Cristóbal Gásquez</h3>
-          <p class="agenda-meta">Divulgador · Abogado · Presidente UEC</p>
-        </div>
-      </div>
-
-      <!-- Mesa redonda 2 -->
-      <div class="agenda-item" data-type="panel">
-        <div class="agenda-time">19:10</div>
-        <div class="agenda-line"><span class="agenda-dot"></span></div>
-        <div class="agenda-content">
-          <span class="agenda-badge panel">Mesa redonda · 40 min</span>
-          <h3 class="agenda-title">Ética y Futuro de la IA</h3>
-          <p class="agenda-meta">Francisco Herrera · Jamal Toutouh · Cristóbal Gásquez · Brais Moure</p>
-        </div>
-      </div>
-
-      <!-- Clausura -->
-      <div class="agenda-item" data-type="special">
-        <div class="agenda-time">19:50</div>
-        <div class="agenda-line"><span class="agenda-dot"></span></div>
-        <div class="agenda-content">
-          <span class="agenda-badge special">Clausura</span>
-          <h3 class="agenda-title">Clausura y despedida</h3>
-          <p class="agenda-meta">15 min</p>
-        </div>
-      </div>
-
-      <!-- Networking -->
-      <div class="agenda-item" data-type="special">
-        <div class="agenda-time">20:05</div>
-        <div class="agenda-line"><span class="agenda-dot"></span></div>
-        <div class="agenda-content">
-          <span class="agenda-badge special">Networking</span>
-          <h3 class="agenda-title">Networking y cierre del evento</h3>
-          <p class="agenda-meta">Hasta las 21:00</p>
-        </div>
-      </div>
-
-    </div><!-- end day 2 -->
 
   </div>
 </section>
